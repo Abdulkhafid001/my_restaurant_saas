@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All restaurants</title>
+</head>
+
+<body>
+    <h1>All restaurants</h1>
+    {% for restaurant in restaurant_list %}
+    <ul>
+        <li>Name: {{ restaurant.restaurant_name }}</li>
+        <li>Address: {{ restaurant.restaurant_address }}</li>
+        <li>Image: {{ restaurant.restaurant_image }}</li>
+        <li>Contact: {{ restaurant.restaurant_contact}}</li>
+    </ul>
+    {% endfor %}
+</body>
+
+</html>

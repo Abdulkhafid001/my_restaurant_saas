@@ -1,8 +1,9 @@
 from django.shortcuts import render
 from naija_kitchen.models import *
+from django.views.generic import ListView
 # Create your views here.
 
 
-def get_names(request):
-    all_names = Person.objects.all()
-    return render(request, 'signup.html', {'all_names': all_names})
+class RestaurantListView(ListView):
+    model = Restaurant
+    template_name = 'restaurant_list.html'

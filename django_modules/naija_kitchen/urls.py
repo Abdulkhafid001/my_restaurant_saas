@@ -1,5 +1,5 @@
 from django.urls import path
-from naija_kitchen import views
+from naija_kitchen.views import RestaurantListView
 urlpatterns = [
-    path("", views.get_names, name="getFullNames")
+    path("", RestaurantListView.as_view(), name="Get Restaurant Names")
 ]
