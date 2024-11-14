@@ -1,9 +1,15 @@
 from django.shortcuts import render
 from naija_kitchen.models import *
-from django.views.generic import ListView
+from naija_kitchen.serializers import *
+from rest_framework import generics
 # Create your views here.
 
 
-class RestaurantListView(ListView):
-    model = Restaurant
-    template_name = 'restaurant_list.html'
+class ListRestaurant(generics.ListCreateAPIView):
+    queryset = Restaurant.objects.all()
+    serializer_class = RestaurantSerializer
+
+
+class RestaurantDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Restaurant.objects.all()
+    serializer_class = RestaurantSerializer

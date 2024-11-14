@@ -20,8 +20,8 @@ ALLOWED_HOSTS = [".herokuapp.com", "localhost", "127.0.0.1"]
 
 INSTALLED_APPS = [
     'rest_framework',
+    'accounts',
     'naija_kitchen',
-    'apis.apps.ApisConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -105,6 +105,7 @@ USE_I18N = True
 
 USE_TZ = True
 
+AUTH_USER_MODEL = "accounts.NaijaKitchenUser"
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
