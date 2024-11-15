@@ -13,3 +13,13 @@ class ListRestaurant(generics.ListCreateAPIView):
 class RestaurantDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Restaurant.objects.all()
     serializer_class = RestaurantSerializer
+
+
+class ListMenuCategory(generics.RetrieveUpdateDestroyAPIView):
+    queryset = MenuCategory.objects.all()
+    serializer_class = MenuCategorySerializer
+
+
+class ListMenuItem(generics.RetrieveUpdateDestroyAPIView):
+    queryset = MenuItem.objects.all()
+    serializer_class = MenuItemSerializer
