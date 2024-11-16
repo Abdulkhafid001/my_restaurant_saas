@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models import UniqueConstraint
 
 
 class Restaurant(models.Model):
@@ -6,7 +7,8 @@ class Restaurant(models.Model):
     restaurant_address = models.CharField(max_length=200)
     restaurant_image = models.CharField(max_length=200)
     restaurant_contact = models.CharField(max_length=200)
-    restaurant_owner = models.OneToOneField('auth.User', blank=True, null=True, on_delete=models.CASCADE)
+    restaurant_owner = models.OneToOneField(
+        'auth.User', blank=True, null=True, on_delete=models.CASCADE)
 
     def __str__(self) -> str:
         return self.restaurant_name
@@ -19,6 +21,12 @@ class MenuCategory(models.Model):
     description = models.TextField(blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        constraints = [
+            UniqueConstraint(fields=['restaurant', 'name'],
+                             name='unique_category_per_restaurant')
+        ]
 
     def __str__(self):
         return f"{self.name} ({self.restaurant.restaurant_name})"
