@@ -20,7 +20,7 @@ ALLOWED_HOSTS = [".vercel.app", "localhost", "127.0.0.1"]
 
 INSTALLED_APPS = [
     'rest_framework',
-    'accounts',
+    # 'accounts',
     'naija_kitchen',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -105,7 +105,7 @@ USE_I18N = True
 
 USE_TZ = True
 
-AUTH_USER_MODEL = "accounts.NaijaKitchenUser"
+AUTH_USER_MODEL = "auth.User"
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
