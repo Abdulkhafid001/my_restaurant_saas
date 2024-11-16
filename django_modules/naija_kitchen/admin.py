@@ -10,6 +10,6 @@ class RestaurantAdmin(admin.ModelAdmin):
     )
 
 
-admin.site.register(Restaurant, RestaurantAdmin)
-admin.site.register(MenuCategory)
 admin.site.register(MenuItem)
+admin.site.register(MenuCategory)
+admin.site.register(Restaurant, RestaurantAdmin)
