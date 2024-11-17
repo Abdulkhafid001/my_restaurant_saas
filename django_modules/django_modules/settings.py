@@ -64,6 +64,12 @@ TEMPLATES = [
 WSGI_APPLICATION = 'django_modules.wsgi.application'
 
 
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',
+    ]
+}
+
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
