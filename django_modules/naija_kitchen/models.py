@@ -8,7 +8,7 @@ class Restaurant(models.Model):
     restaurant_image = models.CharField(max_length=200)
     restaurant_contact = models.CharField(max_length=200)
     restaurant_owner = models.ForeignKey(
-        'auth.User', blank=True, null=True, on_delete=models.CASCADE, related_name='restaurants')
+        'auth.User', blank=True, null=True, on_delete=models.CASCADE, related_name='restaurant_name')
 
     def __str__(self) -> str:
         return self.restaurant_name
@@ -17,7 +17,7 @@ class Restaurant(models.Model):
 class MenuCategory(models.Model):
     restaurant = models.ForeignKey(
         Restaurant, on_delete=models.CASCADE, related_name='menu_categories')
-    name = models.CharField(max_length=100, unique=True)
+    name = models.CharField(max_length=100)
     description = models.TextField(blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
