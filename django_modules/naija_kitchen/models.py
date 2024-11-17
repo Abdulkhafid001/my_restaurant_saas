@@ -7,8 +7,8 @@ class Restaurant(models.Model):
     restaurant_address = models.CharField(max_length=200)
     restaurant_image = models.CharField(max_length=200)
     restaurant_contact = models.CharField(max_length=200)
-    restaurant_owner = models.OneToOneField(
-        'auth.User', blank=True, null=True, on_delete=models.CASCADE)
+    restaurant_owner = models.ForeignKey(
+        'auth.User', blank=True, null=True, on_delete=models.CASCADE, related_name='restaurants')
 
     def __str__(self) -> str:
         return self.restaurant_name
