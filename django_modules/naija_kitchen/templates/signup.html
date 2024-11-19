@@ -10,7 +10,12 @@
 
   <body>
     {% block content %}
-    <div class="container"></div>
+    <div class="container">
+      <form method="post">
+        {% csrf_token %} {{ signupForm.as_p }}
+        <button type="submit">Signup</button>
+      </form>
+    </div>
     {% endblock content %}
   </body>
 </html>

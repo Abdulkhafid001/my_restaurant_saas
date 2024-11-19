@@ -26,11 +26,11 @@ def signup(request):
         form = SignupForm(request.POST)
         if form.is_valid():
             user = form.save()
-            login(request, user)
+            auth_login(request, user)
             return redirect('api-home')
     else:
         form = SignupForm()
-    return render(request, "login.html", {'loginForm': form})
+    return render(request, 'signup.html', {'signupForm': form})
 
 
 def login(request):
