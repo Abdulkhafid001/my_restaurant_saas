@@ -10,6 +10,6 @@ router.register(r'menucategories', views.MenuCategoryViewSet)
 
 urlpatterns = [
     path('', include(router.urls), name='api-home'),
-    path('login/', views.login, name='login'),
+    path('login', views.login, name='login'),
     path('signup/', views.signup, name='signup')
 ]
