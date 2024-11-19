@@ -1,25 +1,61 @@
+{% extends 'main.html'%}
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
 
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>All restaurants</title>
+    <title>{% block title%}All Restaurants{% endblock %}</title>
 </head>
 
 <body>
-    <div class="container">
-        <form action="" method="get">
-            <input class="p-3" id="search" type="text" placeholder="search for any product" />
-        </form>
-    </div>
-    <h1>All restaurants</h1>
-    <div id="box">
-        {% for restaurant in object_list %}
-        <a href="http://127.0.0.1:8000/restaurants/{{restaurant.id}}/"> <b>{{restaurant.restaurant_name}}</b></a> <br>
-        {% endfor %}
+    {% block content %}
+    <header class="jumbotron jumbotron-fluid py-5 mb-4">
+        <div class="container text-center py-5">
+            <h1 class="display-4">Discover Amazing Restaurants</h1>
+            <p class="lead">Find the best dining experiences in your area</p>
+            <a href="#" class="btn btn-primary btn-lg">Explore Now</a>
+        </div>
+    </header>
 
-    </div>
+    <main class="container">
+        <section class="mb-5">
+            <h2 class="text-center mb-4">Featured Restaurant</h2>
+            <div class="container">
+                <div class="row">
+                    <div id="productCard">
+                        {% for restaurant in object_list%}
+                        <div class="col-sm-4 mb-3">
+                            <div class="card">
+                                <img class="card-img-top img-fluid" src="{{restaurant.imageURL}}"
+                                    alt="{{restaurant.imageURL}}">
+                                <div class="card-body text-start">
+                                    <h6><strong>{{restaurant.restaurant_name}}</strong></h6>
+                                    <h4>{{restaurant.restaurant_address}}</h4>
+                                    <button data-product="{{restaurant.id}}" data-action="add"
+                                        class="btn btn-outline-secondary add-btn update-cart">View Menu</button>
+                                    <a class="btn btn-outline-success" href="#">View</a>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor%}
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2 class="text-center mb-4">Popular Restaurants</h2>
+            <div class="row" id="restaurantList">
+                <!-- Restaurant cards will be dynamically added here -->
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-dark text-white text-center py-3 mt-5">
+        <p>&copy; 2023 Tasty Bites. All rights reserved.</p>
+    </footer>
 
     <script>
         const restaurantData = "{{qs_json}}";
@@ -44,6 +80,7 @@
             console.log(filteredArray);
         });
     </script>
+    {% endblock %}
 </body>
 
 </html>
