@@ -9,7 +9,8 @@ router.register(r'restaurants', views.RestaurantViewSet)
 router.register(r'menucategories', views.MenuCategoryViewSet)
 
 urlpatterns = [
-    path('', include(router.urls)),
+    path('', include(router.urls), name='api-home'),
+    path('login', views.login, name='login')
 ]
 
 

@@ -45,3 +45,11 @@ class MenuItem(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class User(models.Model):
+    user_name = models.CharField(max_length=200, null=False)
+    user_email = models.EmailField(null=False)
+
+    def __str__(self):
+        return f"username: {self.user_name}, mail: {self.user_email}"
