@@ -15,13 +15,26 @@
         <div class="container text-center py-5">
             <h1 class="display-4">Discover Amazing Restaurants</h1>
             <p class="lead">Find the best dining experiences in your area</p>
-            <a href="#" class="btn btn-primary btn-lg">Explore Now</a>
+            <a href="#" class="btn btn-success btn-lg">Explore Now</a>
         </div>
     </header>
 
     <main class="container">
         <section class="mb-5">
             <h2 class="text-center mb-4">Featured Restaurant</h2>
+            <div class="container h-100 mb-3">
+                <div class="row h-100 justify-content-center align-items-center">
+                    <div class="col-md-8 col-lg-6">
+                        <form action="" method="get" class="d-flex shadow  p-2 bg-white">
+                            <input id="search_here" class="form-control me-2 p-2 border-0 shadow-none" type="search"
+                                placeholder="Search for restaurants..." aria-label="Search">
+                            <button class="btn btn-success  px-3" type="submit">
+                                Search
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
             <div class="container">
                 <div class="row">
                     <div id="productCard">
@@ -36,6 +49,8 @@
                                     <button data-product="{{restaurant.id}}" data-action="add"
                                         class="btn btn-outline-secondary add-btn update-cart">View Menu</button>
                                     <a class="btn btn-outline-success" href="#">View</a>
+                                    <p class="card-text"><small class="text-muted">⭐⭐⭐⭐⭐ (4.9)</small></p>
+
                                 </div>
                             </div>
                         </div>
@@ -62,23 +77,27 @@
         const cleanData = JSON.parse(restaurantData.replace(/&quot;/g, '"'));
         console.log(cleanData);
 
-        var searchInput = document.getElementById("search");
         var box = document.getElementById('box');
         let filteredArray = [];
 
-        searchInput.addEventListener("keyup", (e) => {
-            const searchTerm = e.target.value.toLowerCase();
-            box.innerHTML = "";
-            filteredArray = cleanData.filter((restaurant) => restaurant["restaurant_name"].includes(e.target.value));
-            if (filteredArray.length > 0) {
-                filteredArray.map((restaurant) => {
-                    box.innerHTML += `<a href="restaurants/${restaurant['id']}}/"> <b>${restaurant['restaurant_name']}</b></a> <br>`;
-                });
-            } else {
-                box.innerHTML = "No restaurant Found.";
-            }
-            console.log(filteredArray);
-        });
+        document.addEventListener("DOMContentLoaded", function () {
+            var searchInput = document.getElementById("search");
+
+            searchInput.addEventListener("keyup", (e) => {
+                const searchTerm = e.target.value.toLowerCase();
+                box.innerHTML = "";
+                filteredArray = cleanData.filter((restaurant) => restaurant["restaurant_name"].includes(e.target.value));
+                if (filteredArray.length > 0) {
+                    filteredArray.map((restaurant) => {
+                        box.innerHTML += `<a href="restaurants/${restaurant['id']}}/"> <b>${restaurant['restaurant_name']}</b></a> <br>`;
+                    });
+                } else {
+                    box.innerHTML = "No restaurant Found.";
+                }
+                console.log(filteredArray);
+            });
+        })
+
     </script>
     {% endblock %}
 </body>
