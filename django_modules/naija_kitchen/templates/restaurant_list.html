@@ -1,20 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>All restaurants</title>
-  </head>
+</head>
 
-  <body>
+<body>
+    <div class="container">
+        <form action="" method="get">
+            <input class="p-3" id="search" type="text" placeholder="search for any product" />
+        </form>
+    </div>
     <h1>All restaurants</h1>
-    {% for restaurant in object_list %}
-    <ul>
-      <li>Name: {{ restaurant.restaurant_name }}</li>
-      <li>Address: {{ restaurant.restaurant_address }}</li>
-      <li>Image: {{ restaurant.restaurant_image }}</li>
-      <li>Contact: {{ restaurant.restaurant_contact}}</li>
-    </ul>
-    {% endfor %}
-  </body>
+    <div id="box">
+        {% for restaurant in object_list %}
+        <a href="http://127.0.0.1:8000/restaurants/{{restaurant.id}}/"> <b>{{restaurant.restaurant_name}}</b></a> <br>
+        {% endfor %}
+
+    </div>
+
+    <script>
+        const restaurantData = "{{qs_json}}";
+        const cleanData = JSON.parse(restaurantData.replace(/&quot;/g, '"'));
+        console.log(cleanData);
+
+        var searchInput = document.getElementById("search");
+        var box = document.getElementById('box');
+        let filteredArray = [];
+
+        searchInput.addEventListener("keyup", (e) => {
+            const searchTerm = e.target.value.toLowerCase();
+            box.innerHTML = "";
+            filteredArray = cleanData.filter((restaurant) => restaurant["restaurant_name"].includes(e.target.value));
+            if (filteredArray.length > 0) {
+                filteredArray.map((restaurant) => {
+                    box.innerHTML += `<a href="restaurants/${restaurant['id']}}/"> <b>${restaurant['restaurant_name']}</b></a> <br>`;
+                });
+            } else {
+                box.innerHTML = "No restaurant Found.";
+            }
+            console.log(filteredArray);
+        });
+    </script>
+</body>
+
 </html>
