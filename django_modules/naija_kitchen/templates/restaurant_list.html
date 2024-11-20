@@ -26,7 +26,7 @@
                 <div class="row h-100 justify-content-center align-items-center">
                     <div class="col-md-8 col-lg-6">
                         <form action="" method="get" class="d-flex shadow  p-2 bg-white">
-                            <input id="search_here" class="form-control me-2 p-2 border-0 shadow-none" type="search"
+                            <input id="searchInput" class="form-control me-2 p-2 border-0 shadow-none" type="search"
                                 placeholder="Search for restaurants..." aria-label="Search">
                             <button class="btn btn-success  px-3" type="submit">
                                 Search
@@ -77,22 +77,26 @@
         const cleanData = JSON.parse(restaurantData.replace(/&quot;/g, '"'));
         console.log(cleanData);
 
-        var box = document.getElementById('box');
+        var productCard = document.getElementById('productCard');
         let filteredArray = [];
 
         document.addEventListener("DOMContentLoaded", function () {
-            var searchInput = document.getElementById("search");
+            var searchInput = document.getElementById("searchInput");
 
             searchInput.addEventListener("keyup", (e) => {
                 const searchTerm = e.target.value.toLowerCase();
-                box.innerHTML = "";
+                productCard.innerHTML = "";
                 filteredArray = cleanData.filter((restaurant) => restaurant["restaurant_name"].includes(e.target.value));
                 if (filteredArray.length > 0) {
                     filteredArray.map((restaurant) => {
-                        box.innerHTML += `<a href="restaurants/${restaurant['id']}}/"> <b>${restaurant['restaurant_name']}</b></a> <br>`;
+                        productCard.innerHTML += `<div class="col-sm-4 mb-3"><div class="card"><img class="card-img-top img-fluid" src="http://127.0.0.1:8000/uploaded_images/${restaurant['restaurant_image']}"
+                                    alt="${restaurant['imageURL']}"> <div class="card-body text-start"> <h6><strong>${restaurant['restaurant_name']}</strong></h6>
+                                    <h4>${restaurant['restaurant_address']}</h4>  <button data-product="${restaurant['id']}" data-action="add"
+                                        class="btn btn-outline-secondary add-btn update-cart">View Menu</button>
+                                    <a class="btn btn-outline-success" href="#">View</a> <p class="card-text"><small class="text-muted">⭐⭐⭐⭐⭐ (4.9)</small></p></div></div></div>`;
                     });
                 } else {
-                    box.innerHTML = "No restaurant Found.";
+                    productCard.innerHTML = "No restaurant Found.";
                 }
                 console.log(filteredArray);
             });
