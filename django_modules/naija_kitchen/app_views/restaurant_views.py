@@ -12,3 +12,4 @@ class RestaurantListView(ListView):
         context = super().get_context_data(**kwargs)
         context['qs_json'] = json.dumps(list(Restaurant.objects.values()))
         return context
+

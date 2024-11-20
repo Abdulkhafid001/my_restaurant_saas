@@ -43,3 +43,8 @@ def login(request):
     else:
         form = LoginForm()
     return render(request, "login.html", {'loginForm': form})
+
+
+def get_restaurant_menucategories(request):
+    menu_categories = MenuCategory.objects.all()
+    return render(request, 'menu_categories.html', {'menucategories': menu_categories})

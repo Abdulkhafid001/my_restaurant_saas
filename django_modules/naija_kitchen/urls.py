@@ -10,8 +10,9 @@ router.register(r'restaurants', views.RestaurantViewSet)
 router.register(r'menucategories', views.MenuCategoryViewSet)
 
 urlpatterns = [
-    path('', include(router.urls), name='api-home'),
+    # path('', include(router.urls), name='api-home'),
     path('login', views.login, name='login'),
     path('signup/', views.signup, name='signup'),
-    path("myrestaurants/", RestaurantListView.as_view(), name="all restaurants")
+    path("myrestaurants/", RestaurantListView.as_view(), name="all restaurants"),
+    path("restaurant/menucategories", views.get_restaurant_menucategories, name="restaurant menucategories")
 ]
