@@ -43,10 +43,10 @@ def login(request):
     return render(request, "login.html", {'loginForm': form})
 
 
-def get_restaurant_menucategories(request, restaurant_id):
-    restaurant = get_object_or_404(Restaurant, id=restaurant_id)
+def get_restaurant_menucategories(request, menu_category_slug=None):
+    restaurant = get_object_or_404(Restaurant, slug=menu_category_slug)
     menu_categories = restaurant.menu_categories.all()
-    return render(request, 'menu_categories.html', {'menucategories': menu_categories})
+    return render(request, 'menu_categories.html', {'menucategories': menu_categories, 'restaurant': restaurant})
 
 
 def get_menucategory_items(request, menucategory_id):

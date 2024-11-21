@@ -1,5 +1,6 @@
 from django.db import models
 from django.db.models import UniqueConstraint
+from django.urls import reverse
 
 
 class Restaurant(models.Model):
@@ -27,6 +28,9 @@ class Restaurant(models.Model):
         except:
             url = ''
         return url
+
+    def get_absolute_url(self):
+        return reverse('restaurant menucategories', kwargs={'menu_category_slug': self.slug})
 
 
 class MenuCategory(models.Model):
@@ -60,6 +64,9 @@ class MenuCategory(models.Model):
             url = ''
         return url
 
+    def get_absolute_url(self):
+        return reverse("restaurant menucategories", args=[self.slug])
+
 
 class MenuItem(models.Model):
     category = models.ForeignKey(
@@ -91,6 +98,9 @@ class MenuItem(models.Model):
         except:
             url = ''
         return url
+
+    def get_absolute_url(self):
+        return reverse("restaurant menuitems", args=[self.id, self.slug])
 
 
 class User(models.Model):
