@@ -12,17 +12,19 @@
 
 <body>
     {% block content %}
+    <h3 class="text-center">Menu Categories</h3>
     <div class="container">
         <a class="btn btn-success m-3 " href="{% url 'all restaurants' %}"><- Go back to home</a>
-        <div class="row">
-            {% for menucategory in menucategories %}
-            <div class="col-sm-4 border border-danger">
-                <p>{{menucategory.restaurant}}</p>
-                <p>{{menucategory.name}}</p>
-                <p>{{menucategory.description}}</p>
-            </div>
-            {% endfor%}
-        </div>
+                <div class="row">
+                    {% for menucategory in menucategories %}
+                    <div class="col-sm-4 border border-danger">
+                        <p>{{menucategory.restaurant}}</p>
+                        <p>{{menucategory.name}}</p>
+                        <p>{{menucategory.description}}</p>
+                        <a href="/menucategory/{{menucategory.id}}/menuitems" class="btn btn-success">View Menu</a>
+                    </div>
+                    {% endfor %}
+                </div>
     </div>
     {% endblock %}
 </body>

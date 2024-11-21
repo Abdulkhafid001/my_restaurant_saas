@@ -1,10 +1,8 @@
-from django.shortcuts import redirect, render
+from django.shortcuts import redirect, render, get_object_or_404
 from rest_framework import viewsets
 from rest_framework import permissions
 from naija_kitchen.forms import SignupForm, LoginForm
 from django.contrib.auth import login as auth_login
-
-
 from naija_kitchen.models import Restaurant, MenuCategory
 from naija_kitchen.serializers import RestaurantSerializer, MenuCategorySerializer
 
@@ -45,6 +43,13 @@ def login(request):
     return render(request, "login.html", {'loginForm': form})
 
 
-def get_restaurant_menucategories(request):
-    menu_categories = MenuCategory.objects.all()
+def get_restaurant_menucategories(request, restaurant_id):
+    restaurant = get_object_or_404(Restaurant, id=restaurant_id)
+    menu_categories = restaurant.menu_categories.all()
     return render(request, 'menu_categories.html', {'menucategories': menu_categories})
+
+
+def get_menucategory_items(request, menucategory_id):
+    menu_category = get_object_or_404(MenuCategory, id=menucategory_id)
+    menu_items = menu_category.menu_items.all()
+    return render(request, 'menu_items.html', {'menuitems': menu_items})
