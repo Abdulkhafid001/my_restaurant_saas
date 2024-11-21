@@ -12,20 +12,24 @@
 
 <body>
     {% block content %}
-    <h3 class="text-center">Menu Categories</h3>
-    <div class="container">
-        <h2>What Our Fans Say</h2>
-        <a class="btn btn-success m-3 " href="{% url 'all restaurants' %}"><- Go back to home</a>
-                <div class="row">
-                    {% for menucategory in menucategories %}
-                    <div class="col-sm-4 border border-danger">
-                        <p>{{menucategory.restaurant}}</p>
-                        <p>{{menucategory.name}}</p>
-                        <p>{{menucategory.description}}</p>
-                        <a href="/menucategory/{{menucategory.id}}/menuitems" class="btn btn-success">View Menu</a>
-                    </div>
-                    {% endfor %}
+    <div class="fan-section">
+        <div class="container text-center poppins-medium">
+            <h2 class="mb-4 fw-bold">Our Exquisite Menu Category</h2>
+            <div class="row g-4">
+                {% for menucategory in menucategories %}
+                <div class="col-md-4">
+                    <img src="{{menucategory.imageURL}}" alt="menucategory.imageURL" class="img-fluid">
+                    <p class="caption">
+                        “{{menucategory.description}} ✨”
+                        <strong>{{menucategory.name}}</strong>
+                    </p>
+                    <p class="caption">{{menucategory.restaurant}}</p>
+                    <a href="/menucategory/{{menucategory.id}}/menuitems" class="btn btn-success fira-code-medium px-5 py-3">View
+                        Menu</a>
                 </div>
+                {% endfor %}
+            </div>
+        </div>
     </div>
     {% endblock %}
 </body>
