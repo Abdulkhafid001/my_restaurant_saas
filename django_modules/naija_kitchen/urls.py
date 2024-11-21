@@ -4,7 +4,6 @@ from naija_kitchen import views
 from naija_kitchen.app_views.restaurant_views import RestaurantListView
 
 from rest_framework.routers import DefaultRouter
-
 router = DefaultRouter()
 router.register(r'restaurants', views.RestaurantViewSet)
 router.register(r'menucategories', views.MenuCategoryViewSet)

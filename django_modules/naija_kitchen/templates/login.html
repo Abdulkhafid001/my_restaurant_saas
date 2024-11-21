@@ -3,21 +3,60 @@
 {% load static %}
 
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{% block title %}Login Naija Kitchen{% endblock %}</title>
-  </head>
-  <body>
-    {% block content %}
 
-    <div class="container">
-      <h1>Login here</h1>
-      <form method="post">
-        {% csrf_token %} {{ loginForm.as_p }}
-        <button type="submit">Login</button>
-      </form>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{% block title %}Login Naija Kitchen{% endblock %}</title>
+</head>
+
+<body>
+  {% block content %}
+
+  <div class="container">
+    <h1>Login here</h1>
+    <form method="post">
+      {% csrf_token %} {{ loginForm.as_p }}
+      <button type="submit">Login</button>
+    </form>
+  </div>
+
+  <div class="container mt-4">
+    <div class="card p-3 shadow-sm d-flex flex-row align-items-center">
+      <!-- Image Section -->
+      <img src="https://via.placeholder.com/150" alt="Margherita Pizza" class="img-fluid rounded"
+        style="width: 150px; height: 150px; object-fit: cover" />
+
+      <!-- Content Section -->
+      <div class="ms-3 flex-grow-1">
+        <div class="d-flex justify-content-between">
+          <h5 class="fw-bold">Margherita Pizza</h5>
+          <h5 class="text-success">$5.99</h5>
+        </div>
+        <p class="text-muted mb-1">
+          Pizza dough, San marzano tomatoes, Fresh mozzarella balls, Fresh
+          basil
+        </p>
+
+        <!-- Quantity Controls -->
+        <div class="d-flex align-items-center mt-2">
+          <button class="btn btn-outline-dark btn-sm rounded-circle">
+            <i class="bi bi-dash"></i>
+          </button>
+          <span class="mx-3 fw-bold">4</span>
+          <button class="btn btn-outline-dark btn-sm rounded-circle">
+            <i class="bi bi-plus"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Delete Icon -->
+      <button class="btn btn-outline-danger btn-sm rounded-circle">
+        <i class="bi bi-trash"></i>
+      </button>
     </div>
-    {% endblock content %}
-  </body>
+  </div>
+  {% endblock content %}
+</body>
+
 </html>
