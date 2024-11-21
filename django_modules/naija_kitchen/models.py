@@ -35,6 +35,7 @@ class MenuCategory(models.Model):
     name = models.CharField(max_length=100)
     slug = models.SlugField(max_length=200, blank=True)
     description = models.TextField(blank=True, null=True)
+    image = models.ImageField(blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -51,6 +52,14 @@ class MenuCategory(models.Model):
     def __str__(self):
         return f"{self.name} ({self.restaurant.restaurant_name})"
 
+    @property
+    def imageURL(self):
+        try:
+            url = self.image.url
+        except:
+            url = ''
+        return url
+
 
 class MenuItem(models.Model):
     category = models.ForeignKey(
@@ -62,7 +71,7 @@ class MenuItem(models.Model):
     is_available = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    # image = models.ImageField(upload_to='menu_images/', blank=True, null=True)
+    image = models.ImageField(blank=True, null=True)
 
     class Meta:
         ordering = ['name']
@@ -74,6 +83,14 @@ class MenuItem(models.Model):
 
     def __str__(self):
         return self.name
+
+    @property
+    def imageURL(self):
+        try:
+            url = self.image.url
+        except:
+            url = ''
+        return url
 
 
 class User(models.Model):
