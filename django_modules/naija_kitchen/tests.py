@@ -1,7 +1,7 @@
 from django.test import TestCase
 from django.urls import reverse
 
-from naija_kitchen.models import Restaurant
+from naija_kitchen.app_models import Restaurant
 
 # Create your tests here.
 

@@ -4,8 +4,8 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{% block title %}Restaurant Menu{% endblock %}</title>
 </head>
 
@@ -27,7 +27,9 @@
                             <h5 class="text-success">{{menuitem.price}}</h5>
                         </div>
                         <p class="text-muted mb-1">{{menuitem.description}}</p>
-                        <p class="text-muted mb-1">Available: {{menuitem.is_available}}</p>
+                        <p class="text-muted mb-1">
+                            Available: {{menuitem.is_available}}
+                        </p>
 
                         <!-- Quantity Controls -->
                         <div class="d-flex align-items-center mt-2">
@@ -40,17 +42,11 @@
                             </button>
                         </div>
                     </div>
-
-                    <!-- Delete Icon -->
-                    <button class="btn btn-outline-danger btn-sm rounded-circle">
-                        <i class="bi bi-trash"></i>
-                    </button>
                 </div>
             </div>
             {% endfor %}
         </div>
     </div>
-
 
     {% endblock %}
 </body>

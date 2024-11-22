@@ -1,6 +1,6 @@
 from django.db.models.signals import post_save
 from django.dispatch import receiver
-from .models import Restaurant, MenuCategory
+from naija_kitchen.models import Restaurant, MenuCategory
 
 # Signal receiver function
 

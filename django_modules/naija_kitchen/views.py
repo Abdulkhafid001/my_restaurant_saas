@@ -44,8 +44,12 @@ def login(request):
 
 
 def get_all_restaurant(request):
+    visit_count = request.session.get('visit_count', 0)
+    visit_count += 1
+    request.session['visit_count'] = visit_count
     restaurants = Restaurant.objects.all()
-    return render(request, 'restaurant_list.html', {'restaurants': restaurants})
+    context = {'restaurants': restaurants, 'visit_count': visit_count}
+    return render(request, 'restaurant_list.html', context)
 
 
 def get_restaurant_menucategories(request, slug):

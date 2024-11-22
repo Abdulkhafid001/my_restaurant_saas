@@ -3,7 +3,6 @@ from naija_kitchen.models import Restaurant, MenuCategory, MenuItem
 from django.contrib.auth.models import User
 
 from rest_framework import serializers
-from naija_kitchen.models import Restaurant, MenuCategory
 
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
