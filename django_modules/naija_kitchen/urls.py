@@ -13,7 +13,7 @@ urlpatterns = [
     path('login', views.login, name='login'),
     path('signup/', views.signup, name='signup'),
     path("", views.get_all_restaurant, name="all_restaurants"),
-    path("restaurant/<slug:slug>/", views.get_restaurant_menucategories, name="restaurant_menucategories"),
-    path("menucategory/<int:menucategory_id>/menuitems", views.get_menucategory_items, name="restaurant_menuitems")
+    path("<slug:slug>/", views.get_restaurant_menucategories, name="restaurant_menucategories"),
+    path('<slug:restaurant_slug>/<slug:category_slug>/', views.get_menucategory_items, name="restaurant_menuitems")
 ] 
  

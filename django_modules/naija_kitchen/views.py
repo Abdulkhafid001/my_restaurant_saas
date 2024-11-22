@@ -3,7 +3,7 @@ from rest_framework import viewsets
 from rest_framework import permissions
 from naija_kitchen.forms import SignupForm, LoginForm
 from django.contrib.auth import login as auth_login
-from naija_kitchen.models import Restaurant, MenuCategory
+from naija_kitchen.models import *
 from naija_kitchen.serializers import RestaurantSerializer, MenuCategorySerializer
 
 
@@ -47,13 +47,19 @@ def get_all_restaurant(request):
     restaurants = Restaurant.objects.all()
     return render(request, 'restaurant_list.html', {'restaurants': restaurants})
 
+
 def get_restaurant_menucategories(request, slug):
     restaurant = get_object_or_404(Restaurant, slug=slug)
     menu_categories = restaurant.menu_categories.all()
-    return render(request, 'menu_categories.html', {'menucategories': menu_categories})
+    context = {'restaurant': restaurant, 'menucategories': menu_categories}
+    return render(request, 'menu_categories.html', context)
 
 
-def get_menucategory_items(request, slug):
-    menu_category = get_object_or_404(MenuCategory, slug)
-    menu_items = menu_category.menu_items.all()
-    return render(request, 'menu_items.html', {'menuitems': menu_items})
+def get_menucategory_items(request, restaurant_slug,  category_slug):
+    restaurant = get_object_or_404(Restaurant, slug=restaurant_slug)
+    category = get_object_or_404(
+        MenuCategory, slug=category_slug, restaurant=restaurant)
+    menu_items = MenuItem.objects.filter(category=category)
+    context = {'restaurant': restaurant,
+               'category': category, 'menuitems': menu_items}
+    return render(request, 'menu_items.html', context)

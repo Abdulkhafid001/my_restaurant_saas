@@ -3,40 +3,35 @@
 {% load static %}
 
 <html lang="en">
-  <head>
+
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{% block title%} menucategories {%endblock%}</title>
-  </head>
+</head>
 
-  <body>
+<body>
     {% block content %}
     <div class="fan-section">
-      <div class="container text-center poppins-medium">
-        <h2 class="mb-4 fw-bold">Our Exquisite Menu Category</h2>
-        <div class="row g-4">
-          {% for menucategory in menucategories %}
-          <div class="col-md-4">
-            <img
-              src="{{menucategory.imageURL}}"
-              alt="menucategory.imageURL"
-              class="img-fluid"
-            />
-            <p class="caption">
-              “{{menucategory.description}} ✨”
-              <strong>{{menucategory.name}}</strong>
-            </p>
-            <p class="caption">{{menucategory.restaurant}}</p>
-            <a
-              href="{% url 'restaurant_menucategories' slug=menucategory.slug %}"
-              class="btn btn-success fira-code-medium px-5 py-3"
-              >View Menu</a
-            >
-          </div>
-          {% endfor %}
+        <div class="container text-center poppins-medium">
+            <h2 class="mb-4 fw-bold">Our Exquisite Menu Category</h2>
+            <div class="row g-4">
+                {% for menucategory in menucategories %}
+                <div class="col-md-4">
+                    <img src="{{menucategory.imageURL}}" alt="menucategory.imageURL" class="img-fluid" />
+                    <p class="caption">
+                        “{{menucategory.description}} ✨”
+                        <strong>{{menucategory.name}}</strong>
+                    </p>
+                    <p class="caption">{{menucategory.restaurant}}</p>
+                    <a href="{% url 'restaurant_menuitems' restaurant_slug=restaurant.slug category_slug=menucategory.slug %}"
+                        class="btn btn-success fira-code-medium px-5 py-3">View Menu</a>
+                </div>
+                {% endfor %}
+            </div>
         </div>
-      </div>
     </div>
     {% endblock %}
-  </body>
+</body>
+
 </html>
