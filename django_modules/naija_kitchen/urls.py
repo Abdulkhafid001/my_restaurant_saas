@@ -12,8 +12,8 @@ urlpatterns = [
     # path('', include(router.urls), name='api-home'),
     path('login', views.login, name='login'),
     path('signup/', views.signup, name='signup'),
-    path("myrestaurants/", RestaurantListView.as_view(), name="all restaurants"),
-    path("restaurant/<slug:menu_category_slug>/menucategories", views.get_restaurant_menucategories, name="restaurant menucategories"),
-    path("menucategory/<int:menucategory_id>/menuitems", views.get_menucategory_items, name="restaurant menuitems")
+    path("", views.get_all_restaurant, name="all_restaurants"),
+    path("restaurant/<slug:slug>/", views.get_restaurant_menucategories, name="restaurant_menucategories"),
+    path("menucategory/<int:menucategory_id>/menuitems", views.get_menucategory_items, name="restaurant_menuitems")
 ] 
  

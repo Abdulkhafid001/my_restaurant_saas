@@ -21,6 +21,9 @@ class Restaurant(models.Model):
     def __str__(self) -> str:
         return self.restaurant_name
 
+    def get_absolute_url(self):
+        return reverse('restaurant_menucategories', kwargs={'slug': self.slug})
+
     @property
     def imageURL(self):
         try:
@@ -28,9 +31,6 @@ class Restaurant(models.Model):
         except:
             url = ''
         return url
-
-    def get_absolute_url(self):
-        return reverse('restaurant menucategories', kwargs={'menu_category_slug': self.slug})
 
 
 class MenuCategory(models.Model):
@@ -56,6 +56,9 @@ class MenuCategory(models.Model):
     def __str__(self):
         return f"{self.name} ({self.restaurant.restaurant_name})"
 
+    def get_absolute_url(self):
+        return reverse("restaurant_menucategories", kwargs={'slug': self.slug})
+
     @property
     def imageURL(self):
         try:
@@ -63,9 +66,6 @@ class MenuCategory(models.Model):
         except:
             url = ''
         return url
-
-    def get_absolute_url(self):
-        return reverse("restaurant menucategories", args=[self.slug])
 
 
 class MenuItem(models.Model):
@@ -100,7 +100,7 @@ class MenuItem(models.Model):
         return url
 
     def get_absolute_url(self):
-        return reverse("restaurant menuitems", args=[self.id, self.slug])
+        return reverse("restaurant_menuitems", kwargs={'slug': self.slug})
 
 
 class User(models.Model):

@@ -2,6 +2,7 @@ from django.contrib import admin
 from naija_kitchen.models import *
 # Register your models here.
 
+
 @admin.register(Restaurant)
 class RestaurantAdmin(admin.ModelAdmin):
     list_display = (
@@ -11,8 +12,10 @@ class RestaurantAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('restaurant_name',)}
 
 
+@admin.register(MenuCategory)
 class MenuCategoryAdmin(admin.ModelAdmin):
-    list_filter = ['available']
+    prepopulated_fields = {'slug': ('name',)}
+
 
 @admin.register(MenuItem)
 class MenuItemAdmin(admin.ModelAdmin):
@@ -28,5 +31,5 @@ class MenuItemAdmin(admin.ModelAdmin):
 
 
 # admin.site.register(MenuItem)
-admin.site.register(MenuCategory)
+# admin.site.register(MenuCategory)
 # admin.site.register(Restaurant, RestaurantAdmin)
