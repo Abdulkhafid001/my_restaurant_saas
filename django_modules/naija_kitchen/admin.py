@@ -1,6 +1,6 @@
 from django.contrib import admin
 from naija_kitchen.models import *
-# Register your models here.
+from cart.models import *
 
 
 @admin.register(Restaurant)
@@ -30,6 +30,19 @@ class MenuItemAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('name',)}
 
 
-# admin.site.register(MenuItem)
-# admin.site.register(MenuCategory)
-# admin.site.register(Restaurant, RestaurantAdmin)
+@admin.register(Order)
+class OrderAdmin(admin.ModelAdmin):
+    list_display = (
+        'user',
+        'date_ordered',
+    )
+
+
+@admin.register(OrderItem)
+class OrderItemAdmin(admin.ModelAdmin):
+    list_display = (
+        'order',
+        'product',
+        'quantity',
+        'date_added',
+    )

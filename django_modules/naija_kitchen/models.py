@@ -10,7 +10,7 @@ class Restaurant(models.Model):
     restaurant_image = models.ImageField(null=True, blank=True)
     restaurant_contact = models.CharField(max_length=200)
     restaurant_owner = models.ForeignKey(
-        'auth.User', blank=True, null=True, on_delete=models.CASCADE, related_name='restaurant_name')
+        'auth.User', blank=True, null=True, on_delete=models.CASCADE, related_name='restaurant_owner')
 
     class Meta:
         ordering = ['restaurant_name']
