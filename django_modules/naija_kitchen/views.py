@@ -2,7 +2,6 @@ from django.shortcuts import redirect, render, get_object_or_404
 from rest_framework import viewsets
 from rest_framework import permissions
 from .models import *
-from cart.views import update_cart
 from .forms import SignupForm, LoginForm
 from django.contrib.auth import login as auth_login
 from .serializers import RestaurantSerializer, MenuCategorySerializer

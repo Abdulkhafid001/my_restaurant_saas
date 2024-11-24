@@ -13,7 +13,7 @@ urlpatterns = [
     path('login/', login, name='login'),
     path('signup/', signup, name='signup'),
     path("", get_all_restaurant, name="all_restaurants"),
-    # path("<slug:slug>/", views.get_restaurant_menucategories, name="restaurant_menucategories"),
+    # path("<slug:slug>/", get_restaurant_menucategories, name="restaurant_menucategories"),
     path('<slug:restaurant_slug>/<slug:category_slug>/', get_menucategory_items, name="restaurant_menuitems"),
     path("update_cart/", update_cart, name="update_cart"),
 ] 
