@@ -11,11 +11,29 @@ def update_cart(request):
         product_id = data.get('productId')
         action = data.get('action')
 
-        customer = request.user
+        user = request.user
         menu_item = MenuItem.objects.get(id=product_id)
+        restaurant = menu_item.category.restaurant
 
-        print('customer: ', customer, 'menu item: ', menu_item)
-        # order, created = Order.objects.get_or_create(user=customer)
-        # update cart logic here
+        print(user, 'has ordered : ', menu_item, ' from: ', restaurant)
+
+        order, created = Order.objects.get_or_create(
+            user=user, restaurant=restaurant, defaults={"complete": False})
+        order_item, created = OrderItem.objects.get_or_create(
+            product=menu_item, order=order
+        )
+        
+        print(f'User: {user}, Restaurant: {restaurant}, Order Created: {created}')
+
+
+        if action == 'add':
+            order_item.quantity = (order_item.quantity + 1)
+        elif action == 'remove':
+            order_item.quantity = (order_item.quantity - 1)
+
+        order_item.save()
+
+        if order_item.quantity <= 0:
+            order_item.delete()
         return JsonResponse("data sent successfully", safe=False, status=200)
     return JsonResponse({"error": "Invalid request"}, status=400)

@@ -40,3 +40,5 @@ function updateCartInBackend(productId, action) {
 }
 
 function updateCartInSession(params) {}
+
+function updateCartFrontend(params) {}
