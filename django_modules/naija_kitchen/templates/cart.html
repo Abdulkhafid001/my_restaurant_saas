@@ -1,0 +1,39 @@
+{% extends 'main.html' %}
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}cart{% endblock %}</title>
+</head>
+
+<body>
+    {% block content %}
+    <div class="container">
+        <div class="d-flex justify-content-between align-items-baseline my-2">
+            <h3 class="text-uppercase fs-anton">your cart</h3>
+            <a href="{% url 'all_restaurants' %}"
+                class="border border-success text-black fs-anton td-none px-5 py-2 fw-bold"><i
+                    class="bi bi-arrow-left"></i> Shop more
+                food</a>
+        </div>
+       <div class="row">
+        <div class="col-sm-8">
+            {% for item in items %}
+            <p>{{item.product.name}}</p>
+            <p>{{item.product.price}}</p>
+            <p>{{item.quantity}}</p>
+            <p>{{item.get_total}}</p>
+            {% endfor %}
+        </div>
+        <div class="col-sm-4">
+            <p>order total: {{order.get_total}}</p>
+        </div>
+       </div>
+    </div>
+    {% endblock %}
+</body>
+
+</html>
