@@ -17,7 +17,7 @@ for (let i = 0; i < cartUpdateBtn.length; i++) {
 
 function updateCartInBackend(productId, action) {
   // functionality to send data to django without reload.
-  var url = "/update_cart/";
+  const url = "/update_cart/";
 
   const data = { productId: productId, action: action };
 
