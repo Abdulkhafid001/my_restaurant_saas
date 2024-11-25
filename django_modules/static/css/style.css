@@ -172,3 +172,52 @@ body {
 }
 
 /* <--------- END ---------> */
+
+/* <-------- cart page styles --------> */
+.product-img {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+}
+
+.quantity-control {
+    width: 120px;
+}
+
+.quantity-input {
+    width: 40px;
+    text-align: center;
+    border: none;
+    background: transparent;
+}
+
+.quantity-btn {
+    border: none;
+    background: transparent;
+    color: #666;
+}
+
+.delete-btn {
+    color: #666;
+    background: none;
+    border: none;
+}
+
+.cart-item {
+    border-radius: 15px;
+    background-color: #fff;
+    margin-bottom: 1rem;
+    padding: 1rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+
+
+.checkout-btn {
+    background-color: #00B517;
+    border: none;
+}
+
+.checkout-btn:hover {
+    background-color: #009714;
+}
