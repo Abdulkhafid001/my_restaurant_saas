@@ -6,11 +6,12 @@ from .cartutils import cart_data
 from naija_kitchen.models import MenuItem
 
 
-def get_product_id(item_id:int):
+def get_product_id(item_id: int):
     return item_id
 
 
 def update_cart(request):
+    print("view called!") 
     if request.method == 'POST':
         data = json.loads(request.body.decode('utf-8'))
         product_id = data.get('productId')
@@ -51,3 +52,12 @@ def cart(request):
     cart_items = data['cartItems']
     context = {'order': order, 'items': items, 'cartItems': cart_items}
     return render(request, 'cart.html', context)
+
+
+def checkout(request):
+    data = cart_data(request)
+    items = data['items']
+    order = data['order']
+    cart_items = data['cartItems']
+    context = {'order': order, 'items': items, 'cartItems': cart_items}
+    return render(request, 'checkout.html', context)

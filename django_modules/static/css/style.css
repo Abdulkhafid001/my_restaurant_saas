@@ -5,7 +5,7 @@ body {
 }
 
 /* GENERAL STYLES */
-.bg-color{
+.bg-color {
     background-color: #FFD700;
 }
 
@@ -61,17 +61,6 @@ body {
     font-style: normal;
 }
 
-.poppins-extralight {
-    font-family: "Poppins", sans-serif;
-    font-weight: 200;
-    font-style: normal;
-}
-
-.poppins-light {
-    font-family: "Poppins", sans-serif;
-    font-weight: 300;
-    font-style: normal;
-}
 
 .poppins-regular {
     font-family: "Poppins", sans-serif;
@@ -85,83 +74,7 @@ body {
     font-style: normal;
 }
 
-.poppins-semibold {
-    font-family: "Poppins", sans-serif;
-    font-weight: 600;
-    font-style: normal;
-}
 
-.poppins-bold {
-    font-family: "Poppins", sans-serif;
-    font-weight: 700;
-    font-style: normal;
-}
-
-.poppins-extrabold {
-    font-family: "Poppins", sans-serif;
-    font-weight: 800;
-    font-style: normal;
-}
-
-.poppins-black {
-    font-family: "Poppins", sans-serif;
-    font-weight: 900;
-    font-style: normal;
-}
-
-.poppins-thin-italic {
-    font-family: "Poppins", sans-serif;
-    font-weight: 100;
-    font-style: italic;
-}
-
-.poppins-extralight-italic {
-    font-family: "Poppins", sans-serif;
-    font-weight: 200;
-    font-style: italic;
-}
-
-.poppins-light-italic {
-    font-family: "Poppins", sans-serif;
-    font-weight: 300;
-    font-style: italic;
-}
-
-.poppins-regular-italic {
-    font-family: "Poppins", sans-serif;
-    font-weight: 400;
-    font-style: italic;
-}
-
-.poppins-medium-italic {
-    font-family: "Poppins", sans-serif;
-    font-weight: 500;
-    font-style: italic;
-}
-
-.poppins-semibold-italic {
-    font-family: "Poppins", sans-serif;
-    font-weight: 600;
-    font-style: italic;
-}
-
-.poppins-bold-italic {
-    font-family: "Poppins", sans-serif;
-    font-weight: 700;
-    font-style: italic;
-}
-
-.poppins-extrabold-italic {
-    font-family: "Poppins", sans-serif;
-    font-weight: 800;
-    font-style: italic;
-}
-
-.poppins-black-italic {
-    font-family: "Poppins", sans-serif;
-    font-weight: 900;
-    font-style: italic;
-}
 
 
 .fira-code-medium {
@@ -208,16 +121,96 @@ body {
     background-color: #fff;
     margin-bottom: 1rem;
     padding: 1rem;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
 
 
 .checkout-btn {
-    background-color: #00B517;
+    /* background-color: #00B517; */
     border: none;
 }
 
 .checkout-btn:hover {
     background-color: #009714;
 }
+
+/*  <=============== checkout page styles ==================> */
+.checkout-tabs {
+    border-bottom: 1px solid #dee2e6;
+    margin-bottom: 2rem;
+}
+
+.checkout-tabs .nav-link {
+    color: #6c757d;
+    border: none;
+    padding: 1rem 0;
+    margin-right: 2rem;
+    font-weight: 500;
+    position: relative;
+}
+
+.checkout-tabs .nav-link.active {
+    color: #000;
+    background: none;
+    font-weight: 600;
+}
+
+.checkout-tabs .nav-link.active::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background-color: #000;
+}
+
+.form-control {
+    border: 1px solid #dee2e6;
+    padding: 0.75rem 1rem;
+    border-radius: 4px;
+}
+
+.form-control:focus {
+    box-shadow: none;
+    border-color: #000;
+}
+
+.product-image {
+    width: 80px;
+    height: 100px;
+    object-fit: cover;
+}
+
+.change-link {
+    color: #000;
+    text-decoration: none;
+    font-size: 0.875rem;
+}
+
+.back-link {
+    color: #000;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.next-step-btn {
+    background-color: #000;
+    color: #fff;
+    padding: 1rem 2rem;
+    border: none;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 200px;
+}
+
+.next-step-btn:hover {
+    background-color: #333;
+}
+
+/*  <=============== END ==================> */

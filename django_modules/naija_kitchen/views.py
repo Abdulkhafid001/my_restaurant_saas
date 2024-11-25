@@ -52,8 +52,8 @@ def get_all_restaurant(request):
     return render(request, 'restaurant_list.html', context)
 
 
-def get_restaurant_menucategories(request, slug):
-    restaurant = get_object_or_404(Restaurant, slug=slug)
+def get_restaurant_menucategories(request, restaurant_slug):
+    restaurant = get_object_or_404(Restaurant, slug=restaurant_slug)
     menu_categories = restaurant.menu_categories.all()
     context = {'restaurant': restaurant, 'menucategories': menu_categories}
     return render(request, 'menu_categories.html', context)

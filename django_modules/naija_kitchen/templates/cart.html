@@ -11,7 +11,7 @@
 
 <body>
     {% block content %}
-    <div class="container py-4">
+    <div class="container py-4 bg-white">
         <!-- Back Button -->
         <div class="mb-4">
             <a href="{% url 'all_restaurants' %}" class="text-decoration-none text-dark">
@@ -73,7 +73,7 @@
                             <strong>Total</strong>
                             <strong>{{order.get_cart_total|floatformat:2}}</strong>
                         </div>
-                        <button class="btn btn-success checkout-btn w-100">Check Out</button>
+                        <a href="{% url 'checkout' %}" class="btn btn-success checkout-btn w-100">Check Out</a>
                     </div>
                 </div>
             </div>

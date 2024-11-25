@@ -24,7 +24,7 @@
                         <strong>{{menucategory.name}}</strong>
                     </p>
                     <p class="caption">{{menucategory.restaurant}}</p>
-                    <a href="{% url 'restaurant_menuitems' restaurant_slug=restaurant.slug category_slug=menucategory.slug %}"
+                    <a href="{% url 'restaurant_menuitems' restaurant_slug=menucategory.restaurant.slug category_slug=menucategory.slug %}"
                         class="btn btn-success fira-code-medium px-5 py-3">View Menu</a>
                 </div>
                 {% endfor %}
