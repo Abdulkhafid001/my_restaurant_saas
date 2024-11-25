@@ -62,7 +62,7 @@ def get_restaurant_menucategories(request, restaurant_slug):
 def get_menucategory_items(request, restaurant_slug,  category_slug):
     restaurant = get_object_or_404(Restaurant, slug=restaurant_slug)
     category = get_object_or_404(
-        MenuCategory, slug=category_slug, restaurant=restaurant)
+        MenuCategory, restaurant=restaurant, slug=category_slug)
     menu_items = MenuItem.objects.filter(category=category)
     context = {'restaurant': restaurant,
                'category': category, 'menuitems': menu_items}

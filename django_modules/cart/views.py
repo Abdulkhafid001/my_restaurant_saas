@@ -6,18 +6,16 @@ from .cartutils import cart_data
 from naija_kitchen.models import MenuItem
 
 
-def get_product_id(item_id: int):
-    return item_id
+product_id_from_request = 0
 
 
 def update_cart(request):
-    print("view called!") 
+    print("view called!")
     if request.method == 'POST':
         data = json.loads(request.body.decode('utf-8'))
         product_id = data.get('productId')
         action = data.get('action')
-
-        get_product_id(product_id)
+        product_id_from_request = product_id
         user = request.user
         menu_item = MenuItem.objects.get(id=product_id)
         restaurant = menu_item.category.restaurant
@@ -42,22 +40,23 @@ def update_cart(request):
         if order_item.quantity <= 0:
             order_item.delete()
         return JsonResponse("data sent successfully", safe=False, status=200)
-    return JsonResponse({"error": "Invalid request"}, status=400)
+    return JsonResponse({"error": "Invalid request try another!"}, status=400)
 
 
 def cart(request):
-    data = cart_data(request)
-    items = data['items']
-    order = data['order']
-    cart_items = data['cartItems']
-    context = {'order': order, 'items': items, 'cartItems': cart_items}
+    if request.user.is_authenticated:
+        user = request.user
+        order = Order.objects.filter(user=user)
+        items_in_order = order.orderitems.all()
+        cart_items = order.get_cart_items
+        context = {'order': order, 'items': items_in_order,
+                   'cartItems': cart_items}
     return render(request, 'cart.html', context)
 
 
 def checkout(request):
-    data = cart_data(request)
-    items = data['items']
-    order = data['order']
-    cart_items = data['cartItems']
-    context = {'order': order, 'items': items, 'cartItems': cart_items}
-    return render(request, 'checkout.html', context)
+    pass
+
+
+def get_product_id_from_request():
+    return product_id_from_request
