@@ -1,14 +1,23 @@
 from .models import *
+from django.http import HttpResponse
 from cart import views
 from naija_kitchen.models import Restaurant, MenuItem
+
+
+def test(request):
+    id = views.get_product_id_from_request(request)
+    print(id)
+    return HttpResponse(id)
 
 
 def cart_data(request):
     if request.user.is_authenticated:
         user = request.user
-       
+        menu_item = MenuItem.objects.get(
+            views.get_product_id_from_request(request))
+        restaurant = menu_item.category.restaurant
         order, created = Order.objects.get_or_create(
-            user=user, restaurant="", defaults={"complete": False})
-        items_in_order = order.orderitem_set.all()
+            user=user, restaurant=restaurant, defaults={"complete": False})
+        items = order.orderitem_set.all()
         cart_items = order.get_cart_items
-        return {'order': order, 'items': items_in_order, 'cartItems': cart_items}
+        return {'order': order, 'items': items, 'cartItems': cart_items}
