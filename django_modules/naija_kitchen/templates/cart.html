@@ -11,7 +11,7 @@
 
 <body>
     {% block content %}
-    <div class="container py-4 bg-white">
+    <div class="container mt-3 py-4 bg-white">
         <!-- Back Button -->
         <div class="mb-4">
             <a href="{% url 'all_restaurants' %}" class="text-decoration-none text-dark">
@@ -31,20 +31,20 @@
                  <div class="cart-item">
                     <div class="d-flex align-items-center justify-content-between">
                         <div class="d-flex align-items-center">
-                            <img src="{{item.product.imageURL}}" alt="Fresh Fruits" class="product-img me-3">
+                            <img src="{{item.product.imageURL}}" alt="{{item.product.imageURL}}" class="product-img me-3">
                             <div >
                                 <h6 class="mb-0">{{item.product.name}}</h6>
                                 <h5>{{item.product.price}}</h5>
                             </div>
                         </div>
-                        <h5 class="text-center">{{item.quantity}}</h5>
+                        <h5 class="text-center"></h5>
                         <div class="d-flex align-items-center gap-4">
                             <div class="quantity-control d-flex align-items-center border rounded">
-                                <button class="quantity-btn px-2">-</button>
-                                <input type="text" value="1" class="quantity-input">
-                                <button class="quantity-btn px-2">+</button>
+                                <button  class="quantity-btn px-2 update-cart" data-product="{{item.product.id}}" data-action="remove">-</button>
+                                <input type="text" value="{{item.quantity}}" class="quantity-input">
+                                <button  class="quantity-btn px-2 update-cart"  data-product="{{item.product.id}}" data-action="add">+</button>
                             </div>
-                            <div class="text-nowrap">{{item.quantity}}</div>
+                            <div class="text-nowrap"></div>
                             <button class="delete-btn">
                                 <i class="bi bi-trash"></i>
                             </button>

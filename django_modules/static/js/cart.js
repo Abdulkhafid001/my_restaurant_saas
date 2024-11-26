@@ -33,7 +33,7 @@ function updateCartInBackend(productId, action) {
     .then((data) => {
       console.log("Response from server: ", data);
       // Optionally update the cart UI here
-    })
+    }).then(location.reload())
     .catch((error) => {
       console.error("Error", error);
     });

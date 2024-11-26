@@ -25,8 +25,7 @@ def update_cart(request):
             product=menu_item, order=order
         )
 
-        print(f'User: {user}, Restaurant: {
-              restaurant}, Order Created: {created}')
+        print(f'User: {user}, Restaurant: {restaurant}, Order Created: {created}')
 
         if action == 'add':
             order_item.quantity = (order_item.quantity + 1)
@@ -45,37 +44,19 @@ def get_product_id_from_request(request):
     return request.session.get('product_id_from_request')
 
 
-# def cart(request):
-#     if request.user.is_authenticated:
-#         product_id = get_product_id_from_request(request)
-#         if product_id is None:
-#             return JsonResponse({"error": "No product ID found"}, safe=False, status=400)
-#         user = request.user
-#         menu_item = MenuItem.objects.get(id=product_id)
-#         restaurant = menu_item.category.restaurant
-#         order, created = Order.objects.get_or_create(
-#             user=user, restaurant=restaurant, defaults={"complete": False})
-#         items = order.orderitem_set.all()
-#         cart_items = order.get_cart_items
-#         context = {'order': order, 'items': items, 'cartItems': cart_items}
-#         return render(request, 'cart.html', context)
+
+
+
 def cart(request):
     if request.user.is_authenticated:
-        product_id = get_product_id_from_request(request)
-        if product_id is None:
-            return JsonResponse({"error": "No product ID found"}, safe=False, status=400)
-        user = request.user
-        menu_item = MenuItem.objects.get(id=product_id)
-        restaurant = menu_item.category.restaurant
-        order, created = Order.objects.get_or_create(
-            user=user, restaurant=restaurant, defaults={"complete": False})
-        items = order.orderitem_set.all()
-        cart_items = order.get_cart_items
+        data = cart_data(request)
+        order = data['order']
+        items = data['items']
+        cart_items = data['cartItems']
         context = {'order': order, 'items': items, 'cartItems': cart_items}
         return render(request, 'cart.html', context)
 
 
-#    return render(request, 'cart.html', context)
 
 
 def checkout(request):

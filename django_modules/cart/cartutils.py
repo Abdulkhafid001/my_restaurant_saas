@@ -13,11 +13,14 @@ def test(request):
 def cart_data(request):
     if request.user.is_authenticated:
         user = request.user
+        product_id = request.session.get('product_id_from_request')
         menu_item = MenuItem.objects.get(
-            views.get_product_id_from_request(request))
+            id=product_id)
+        # menu_item = MenuItem.objects.get(
+        #     id=views.get_product_id_from_request(request))
         restaurant = menu_item.category.restaurant
         order, created = Order.objects.get_or_create(
             user=user, restaurant=restaurant, defaults={"complete": False})
         items = order.orderitem_set.all()
         cart_items = order.get_cart_items
-        return {'order': order, 'items': items, 'cartItems': cart_items}
+        return {'order': order, 'items': items, 'cartItems': cart_items}    
