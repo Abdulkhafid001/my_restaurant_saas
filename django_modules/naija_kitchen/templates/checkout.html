@@ -11,7 +11,77 @@
 
 <body>
     {% block content %}
- 
+    <div class="container checkout-container">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Checkout</h5>
+                        <form id="billingForm">
+                            <div class="mb-3">
+                                <label for="fullName" class="form-label">Name</label>
+                                <input type="text" class="form-control" id="name" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="email" class="form-label">Phone Number</label>
+                                <input type="text" class="form-control" id="phoneNumber" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="billingAddress" class="form-label">Delivery address</label>
+                                <input type="text" class="form-control" id="deliveryAddress" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="phoneNumber" class="form-label">Phone Number</label>
+                                <input type="text" class="form-control" id="aptSuite">
+                            </div>
+                            
+                            <button type="submit" class="btn btn-success  w-100">Continue to payment</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="order-summary">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h5 class="mb-0">Order summary</h5>
+                        <a href="{% url 'cart' %}" class="text-decoration-none">Edit</a>
+                    </div>
+                    <ul class="list-group list-group-flush mb-3">
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            Beef Shawarma
+                            <span>
+                                <span class="me-2">x1</span>
+                                &#x20A6 5.00
+                            </span>
+                        </li>
+                        
+                    </ul>
+                    <div class="d-flex justify-content-between mb-2">
+                        <span>Subtotal</span>
+                        <span>$95.00</span>
+                    </div>
+                    <div class="d-flex justify-content-between mb-3">
+                        <strong>Total</strong>
+                        <strong>$95.00</strong>
+                    </div>
+                    <div class="text-center mb-3">
+                        <small class="text-muted">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-lock-fill" viewBox="0 0 16 16">
+                                <path
+                                    d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z" />
+                            </svg>
+                            Secured by PayStack &copy;
+                        </small>
+                    </div>
+                    <div class="payment-icons text-center">
+                        <img src="https://cdn.jsdelivr.net/npm/simple-icons@v5/icons/visa.svg" alt="Visa">
+                        <img src="https://cdn.jsdelivr.net/npm/simple-icons@v5/icons/mastercard.svg" alt="Mastercard">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     {% endblock %}
 </body>
 

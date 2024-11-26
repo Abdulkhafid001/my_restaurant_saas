@@ -60,4 +60,10 @@ def cart(request):
 
 
 def checkout(request):
-    pass
+    if request.user.is_authenticated:
+        data = cart_data(request)
+        order = data['order']
+        items = data['items']
+        cart_items = data['cartItems']
+        context = {'order': order, 'items': items, 'cartItems': cart_items}
+        return render(request, 'checkout.html', context)
