@@ -17,24 +17,20 @@
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">Checkout</h5>
-                        <form id="billingForm">
+                        <form id="checkoutForm">
                             <div class="mb-3">
-                                <label for="fullName" class="form-label">Name</label>
+                                <label for="name" class="form-label">Name</label>
                                 <input type="text" class="form-control" id="name" required>
                             </div>
                             <div class="mb-3">
-                                <label for="email" class="form-label">Phone Number</label>
+                                <label for="phoneNumber" class="form-label">Phone Number</label>
                                 <input type="text" class="form-control" id="phoneNumber" required>
                             </div>
                             <div class="mb-3">
-                                <label for="billingAddress" class="form-label">Delivery address</label>
+                                <label for="deliveryAddress" class="form-label">Delivery address</label>
                                 <input type="text" class="form-control" id="deliveryAddress" required>
                             </div>
-                            <div class="mb-3">
-                                <label for="phoneNumber" class="form-label">Phone Number</label>
-                                <input type="text" class="form-control" id="aptSuite">
-                            </div>
-                            
+
                             <button type="submit" class="btn btn-success  w-100">Continue to payment</button>
                         </form>
                     </div>
@@ -47,22 +43,24 @@
                         <a href="{% url 'cart' %}" class="text-decoration-none">Edit</a>
                     </div>
                     <ul class="list-group list-group-flush mb-3">
+                        {% for item in items %}
                         <li class="list-group-item d-flex justify-content-between align-items-center">
-                            Beef Shawarma
+                            {{item.product.name}}
                             <span>
-                                <span class="me-2">x1</span>
-                                &#x20A6 5.00
+                                <span class="me-2">x{{item.quantity}}</span>
+                                &#x20A6 {{item.get_total|floatformat:2}}
                             </span>
                         </li>
-                        
+                        <p></p>
+                        {% endfor %}
                     </ul>
                     <div class="d-flex justify-content-between mb-2">
-                        <span>Subtotal</span>
-                        <span>$95.00</span>
+                        <span>VAT</span>
+                        <span>&#x20A6 95.00</span>
                     </div>
                     <div class="d-flex justify-content-between mb-3">
                         <strong>Total</strong>
-                        <strong>$95.00</strong>
+                        <strong>{{order.get_cart_total|floatformat:2}}</strong>
                     </div>
                     <div class="text-center mb-3">
                         <small class="text-muted">
@@ -82,6 +80,58 @@
             </div>
         </div>
     </div>
+    <script>
+        var total = Number("{{order.get_cart_total|floatformat:2}}");
+        const checkoutForm = document.getElementById("checkoutForm");
+
+        checkoutForm.addEventListener("submit", function (e) {
+            e.preventDefault();
+            // alert("Form submitted! Continuing to payment...");
+            // getCheckoutFormData();
+            getUserFormDataAndSendToBackend();
+        });
+
+        function getCheckoutFormData() {
+            console.log('getting form data...');
+
+            let userData = {
+                name: "",
+                phoneNumber: "",
+                deliveryAddress: "",
+                total: total
+            };
+
+            userData.name = checkoutForm.name.value;
+            userData.phoneNumber = checkoutForm.phoneNumber.value;
+            userData.deliveryAddress = checkoutForm.deliveryAddress.value;
+            console.log(userData);
+            return userData;
+        }
+
+        function sendCheckoutFormDataToBackend() {
+            var url = '/cart/process_order/';
+            fetch(url, {
+                method: 'POST',
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-CSRFToken": csrftoken,
+                },
+                body: JSON.stringify({ userInfo: getCheckoutFormData() })
+            }).then((response) => {
+                response.json()
+                console.log('response: ', response)
+            }).then((data) => {
+                console.log('Sucess: ', data)
+            });
+        }
+
+        function getUserFormDataAndSendToBackend() {
+            getCheckoutFormData();
+            sendCheckoutFormDataToBackend();
+        }
+
+
+    </script>
     {% endblock %}
 </body>
 
