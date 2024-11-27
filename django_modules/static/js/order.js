@@ -5,9 +5,8 @@ const checkoutForm = document.getElementById("checkoutForm");
 document.addEventListener("DOMContentLoaded", (e) => {
   checkoutForm.addEventListener("submit", function (e) {
     e.preventDefault();
-    // alert("Form submitted! Continuing to payment...");
     getCheckoutFormData();
-    console.log(total);
+    
   });
 });
 

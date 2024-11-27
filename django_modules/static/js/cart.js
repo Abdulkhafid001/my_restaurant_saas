@@ -12,6 +12,7 @@ for (let i = 0; i < cartUpdateBtn.length; i++) {
     } else {
       updateCartInBackend(productId, action);
     }
+    showCartAlertMessage(action);
   });
 }
 
@@ -33,7 +34,8 @@ function updateCartInBackend(productId, action) {
     .then((data) => {
       console.log("Response from server: ", data);
       // Optionally update the cart UI here
-    }).then(location.reload())
+    })
+    // .then(location.reload())
     .catch((error) => {
       console.error("Error", error);
     });
@@ -42,3 +44,25 @@ function updateCartInBackend(productId, action) {
 function updateCartInSession(params) {}
 
 function updateCartFrontend(params) {}
+
+function showCartAlertMessage(action) {
+  var alertMessage = document.getElementById("show");
+  alertMessage.style.display = "block"; // Display the message
+
+  var join = action == "add" ? "to" : "from";
+  alertMessage.innerHTML = "you " + action + " " + join + " cart";
+
+  var closeButton = document.createElement("button");
+  closeButton.innerText = "Close";
+  closeButton.style.marginLeft = "10px";
+  closeButton.style.padding = "5px";
+
+  closeButton.addEventListener("click", function () {
+    alertMessage.style.display = "none";
+  });
+
+  if (!document.getElementById("closeBtn")) {
+    closeButton.setAttribute("id", "closeBtn"); // Add an id to the button
+    alertMessage.appendChild(closeButton);
+  }
+}

@@ -7,6 +7,7 @@ from naija_kitchen.models import MenuItem
 import datetime
 
 
+
 def update_cart(request):
     print("view called!")
     if request.method == 'POST':
@@ -21,10 +22,11 @@ def update_cart(request):
         print(user, 'has ordered : ', menu_item, ' from: ', restaurant)
 
         order, created = Order.objects.get_or_create(
-            user=user, restaurant=restaurant, defaults={"complete": False})
+            user=user, restaurant=restaurant, complete = False)
         order_item, created = OrderItem.objects.get_or_create(
             product=menu_item, order=order
         )
+        request.session['cartItems'] = int(order.get_cart_items)
 
         print(f'User: {user}, Restaurant: {restaurant}, Order Created: {created}')
 
@@ -83,14 +85,14 @@ def process_order(request):
             id=product_id)
         restaurant = menu_item.category.restaurant
         order, created = Order.objects.get_or_create(
-            user=user, restaurant=restaurant, complete=False 
+            user=user, restaurant=restaurant, complete=False
         )
-    
+
     order.transaction_id = transaction_id
     if cart_total == order.get_cart_total:
         order.complete = True
         order.save()
         del request.session['product_id_from_request']
-
+        del request.session['cartItems']
 
     return JsonResponse({'message': 'Order being processed..'}, safe=False, status=200)

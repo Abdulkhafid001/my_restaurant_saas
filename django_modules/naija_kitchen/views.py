@@ -43,19 +43,28 @@ def login(request):
     return render(request, "login.html", {'loginForm': form})
 
 
+def get_cart_items_from_session(request):
+    cart_items_in_session = request.session.get('cartItems')
+    return cart_items_in_session
+
+
 def get_all_restaurant(request):
     visit_count = request.session.get('visit_count', 0)
     visit_count += 1
     request.session['visit_count'] = visit_count
+    cart_items = get_cart_items_from_session(request)
     restaurants = Restaurant.objects.all()
-    context = {'restaurants': restaurants, 'visit_count': visit_count}
+    context = {'restaurants': restaurants,
+               'visit_count': visit_count, 'cartItems': cart_items}
     return render(request, 'restaurant_list.html', context)
 
 
 def get_restaurant_menucategories(request, restaurant_slug):
     restaurant = get_object_or_404(Restaurant, slug=restaurant_slug)
+    cart_items = get_cart_items_from_session(request)
     menu_categories = restaurant.menu_categories.all()
-    context = {'restaurant': restaurant, 'menucategories': menu_categories}
+    context = {'restaurant': restaurant,
+               'menucategories': menu_categories, 'cartItems': cart_items}
     return render(request, 'menu_categories.html', context)
 
 
@@ -64,6 +73,7 @@ def get_menucategory_items(request, restaurant_slug,  category_slug):
     category = get_object_or_404(
         MenuCategory, restaurant=restaurant, slug=category_slug)
     menu_items = MenuItem.objects.filter(category=category)
+    cart_items = get_cart_items_from_session(request)
     context = {'restaurant': restaurant,
-               'category': category, 'menuitems': menu_items}
+               'category': category, 'menuitems': menu_items, 'cartItems': cart_items}
     return render(request, 'menu_items.html', context)

@@ -89,6 +89,7 @@
             // alert("Form submitted! Continuing to payment...");
             // getCheckoutFormData();
             getUserFormDataAndSendToBackend();
+            reloadPageAfterRequest();
         });
 
         function getCheckoutFormData() {
@@ -128,6 +129,10 @@
         function getUserFormDataAndSendToBackend() {
             getCheckoutFormData();
             sendCheckoutFormDataToBackend();
+        }
+
+        function reloadPageAfterRequest() {
+            window.location.href = "{% url 'all_restaurants' %}"
         }
 
 
