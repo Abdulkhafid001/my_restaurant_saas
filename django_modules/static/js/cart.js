@@ -46,23 +46,25 @@ function updateCartInSession(params) {}
 function updateCartFrontend(params) {}
 
 function showCartAlertMessage(action) {
-  var alertMessage = document.getElementById("show");
-  alertMessage.style.display = "block"; // Display the message
+  addEventListener("DOMContentLoaded", (event) => {
+    var alertMessage = document.getElementById("show");
+    alertMessage.style.display = "block"; // Display the message
 
-  var join = action == "add" ? "to" : "from";
-  alertMessage.innerHTML = "you " + action + " " + join + " cart";
+    var join = action == "add" ? "to" : "from";
+    alertMessage.innerHTML = "you " + action + " " + join + " cart";
 
-  var closeButton = document.createElement("button");
-  closeButton.innerText = "Close";
-  closeButton.style.marginLeft = "10px";
-  closeButton.style.padding = "5px";
+    var closeButton = document.createElement("button");
+    closeButton.innerText = "Close";
+    closeButton.style.marginLeft = "10px";
+    closeButton.style.padding = "5px";
 
-  closeButton.addEventListener("click", function () {
-    alertMessage.style.display = "none";
+    closeButton.addEventListener("click", function () {
+      alertMessage.style.display = "none";
+    });
+
+    if (!document.getElementById("closeBtn")) {
+      closeButton.setAttribute("id", "closeBtn"); // Add an id to the button
+      alertMessage.appendChild(closeButton);
+    }
   });
-
-  if (!document.getElementById("closeBtn")) {
-    closeButton.setAttribute("id", "closeBtn"); // Add an id to the button
-    alertMessage.appendChild(closeButton);
-  }
 }

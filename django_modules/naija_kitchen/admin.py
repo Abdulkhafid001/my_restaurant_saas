@@ -1,7 +1,8 @@
 from django.contrib import admin
 from naija_kitchen.models import *
 from cart.models import *
-
+from django.contrib.sessions.models import Session
+admin.site.register(Session)
 
 @admin.register(Restaurant)
 class RestaurantAdmin(admin.ModelAdmin):

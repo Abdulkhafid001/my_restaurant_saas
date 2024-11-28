@@ -132,4 +132,7 @@ MEDIA_URL = 'uploaded_images/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+
+# session values
 CART_SESSION_ID = 'cart'
+SESSION_SAVE_EVERY_REQUEST = True
