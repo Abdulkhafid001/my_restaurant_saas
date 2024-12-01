@@ -41,9 +41,9 @@ function updateCartInBackend(productId, action) {
     });
 }
 
-function updateCartInSession(params) {}
+function updateCartInSession() {}
 
-function updateCartFrontend(params) {}
+function updateCartFrontend() {}
 
 function showCartAlertMessage(action) {
   addEventListener("DOMContentLoaded", (event) => {
@@ -67,4 +67,7 @@ function showCartAlertMessage(action) {
       alertMessage.appendChild(closeButton);
     }
   });
+}
+
+function turnOnSession() {
 }
