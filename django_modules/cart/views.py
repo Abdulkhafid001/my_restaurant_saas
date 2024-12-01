@@ -94,7 +94,7 @@ def process_order(request):
         order.complete = True
         order.save()
         del request.session['product_id_from_request']
-        del request.session['cartItems']
+        request.session['cartItems'] = 0
         request.session.modified = True
 
     return JsonResponse({'message': 'Order being processed..'}, safe=False, status=200)

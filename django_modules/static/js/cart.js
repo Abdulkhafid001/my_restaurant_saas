@@ -12,7 +12,6 @@ for (let i = 0; i < cartUpdateBtn.length; i++) {
     } else {
       updateCartInBackend(productId, action);
     }
-    showCartAlertMessage(action);
   });
 }
 
@@ -34,6 +33,7 @@ function updateCartInBackend(productId, action) {
     .then((data) => {
       console.log("Response from server: ", data);
       // Optionally update the cart UI here
+      showCartAlertMessage(action);
     })
     // .then(location.reload())
     .catch((error) => {
@@ -66,8 +66,8 @@ function showCartAlertMessage(action) {
       closeButton.setAttribute("id", "closeBtn"); // Add an id to the button
       alertMessage.appendChild(closeButton);
     }
+    console.log("show cart response called!");
   });
 }
 
-function turnOnSession() {
-}
+function turnOnSession() {}
