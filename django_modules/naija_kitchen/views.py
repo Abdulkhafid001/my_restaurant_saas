@@ -5,6 +5,7 @@ from .models import *
 from .forms import SignupForm, LoginForm
 from django.contrib.auth import login as auth_login
 import json
+from decimal import Decimal
 from .serializers import RestaurantSerializer, MenuCategorySerializer
 
 
@@ -44,6 +45,8 @@ def login(request):
     return render(request, "login.html", {'loginForm': form})
 
 
+
+
 def get_cart_items_from_session(request):
     cart_items_in_session = request.session.get('cartItems')
     return cart_items_in_session
@@ -76,6 +79,7 @@ def get_menucategory_items(request, restaurant_slug,  category_slug):
         MenuCategory, restaurant=restaurant, slug=category_slug)
     menu_items = MenuItem.objects.filter(category=category)
     cart_items = get_cart_items_from_session(request)
+    menu_items_json = json.dumps(list(MenuItem.objects.values()))
     context = {'restaurant': restaurant,
-               'category': category, 'menuitems': menu_items, 'cartItems': cart_items}
+               'category': category, 'menuitems': menu_items, 'cartItems': cart_items, 'menu_items_json': menu_items_json}
     return render(request, 'menu_items.html', context)
