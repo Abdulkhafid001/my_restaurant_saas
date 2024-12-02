@@ -73,8 +73,9 @@
     </footer>
 
     <script>
-        const restaurantData = "{{restaurants}}"; 
-        console.log(restaurantData);
+        const restaurantData = "{{restaurant_json}}"; 
+        const cleanData = JSON.parse(restaurantData.replace(/&quot;/g, '"'));
+        console.log(cleanData);
 
         var productCard = document.getElementById("productCard");
         let filteredArray = [];
@@ -92,9 +93,10 @@
                     filteredArray.map((restaurant) => {
                         productCard.innerHTML += `<div class="col-sm-4 mb-3"><div class="card"><img class="card-img-top img-fluid" src="http://127.0.0.1:8000/uploaded_images/${restaurant["restaurant_image"]}"
                                     alt="${restaurant["imageURL"]}"> <div class="card-body text-start"> <h6><strong>${restaurant["restaurant_name"]}</strong></h6>
-                                    <h4>${restaurant["restaurant_address"]}</h4>  <button data-product="${restaurant["id"]}" data-action="add"
-                                        class="btn btn-outline-secondary add-btn update-cart">View Menu</button>
-                                    <a class="btn btn-outline-success" href="#">View</a> <p class="card-text"><small class="text-muted">⭐⭐⭐⭐⭐ (4.9)</small></p></div></div></div>`;
+                                    <h4>${restaurant["restaurant_address"]}</h4> 
+                                    <a class="btn btn-outline-success" href="{% url 'restaurant_menucategories' restaurant_slug=${restaurant["restaurant_slug"]} %}">View
+                                    Menu</a>
+                                    <p class="card-text"><small class="text-muted">⭐⭐⭐⭐⭐ (4.9)</small></p></div></div></div>`;
                     });
                 } else {
                     productCard.innerHTML = "No restaurant Found.";

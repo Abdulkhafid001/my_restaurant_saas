@@ -4,6 +4,7 @@ from rest_framework import permissions
 from .models import *
 from .forms import SignupForm, LoginForm
 from django.contrib.auth import login as auth_login
+import json
 from .serializers import RestaurantSerializer, MenuCategorySerializer
 
 
@@ -54,8 +55,9 @@ def get_all_restaurant(request):
     request.session['visit_count'] = visit_count
     cart_items = get_cart_items_from_session(request)
     restaurants = Restaurant.objects.all()
+    restaurant_json = json.dumps(list(Restaurant.objects.values()))
     context = {'restaurants': restaurants,
-               'visit_count': visit_count, 'cartItems': cart_items}
+               'visit_count': visit_count, 'cartItems': cart_items, 'restaurant_json': restaurant_json}
     return render(request, 'restaurant_list.html', context)
 
 
