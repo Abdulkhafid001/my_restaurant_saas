@@ -47,7 +47,7 @@
                                 <h4><strong>{{restaurant.restaurant_name}}</strong></h4>
                                 <h6>{{restaurant.restaurant_address}}</h6>
 
-                                <a class="btn btn-outline-success" href="{% url 'restaurant_menucategories' restaurant_slug=restaurant.slug%}">View
+                                <a id="restaurant-link" class="btn btn-outline-success" href="{% url 'restaurant_menucategories' restaurant_slug=restaurant.slug%}">View
                                     Menu</a>
                                 <p class="card-text">
                                     <small class="text-muted">⭐⭐⭐⭐⭐ (4.9)</small>
@@ -90,11 +90,11 @@
                     restaurant["restaurant_name"].includes(e.target.value)
                 );
                 if (filteredArray.length > 0) {
-                    filteredArray.map((restaurant) => {
+                    filteredArray.map((restaurant) => { 
                         productCard.innerHTML += `<div class="col-sm-4 mb-3"><div class="card"><img class="card-img-top img-fluid" src="http://127.0.0.1:8000/uploaded_images/${restaurant["restaurant_image"]}"
                                     alt="${restaurant["imageURL"]}"> <div class="card-body text-start"> <h6><strong>${restaurant["restaurant_name"]}</strong></h6>
                                     <h4>${restaurant["restaurant_address"]}</h4> 
-                                    <a class="btn btn-outline-success" href="{% url 'restaurant_menucategories' restaurant_slug=${restaurant["restaurant_slug"]} %}">View
+                                    <a id="restaurant-link" class="btn btn-outline-success" href="/${restaurant['slug']}">View
                                     Menu</a>
                                     <p class="card-text"><small class="text-muted">⭐⭐⭐⭐⭐ (4.9)</small></p></div></div></div>`;
                     });
