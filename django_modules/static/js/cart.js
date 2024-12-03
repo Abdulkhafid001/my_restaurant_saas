@@ -15,6 +15,22 @@ for (let i = 0; i < cartUpdateBtn.length; i++) {
   });
 }
 
+// cart.js
+document.addEventListener("DOMContentLoaded", function () {
+  const menuItemCard = document.getElementById("menuItemCard");
+
+  menuItemCard.addEventListener("click", function (event) {
+    if (event.target.closest(".update-cart")) {
+      const button = event.target.closest(".update-cart");
+      const productId = button.getAttribute("data-product");
+      const action = button.getAttribute("data-action");
+
+      console.log(`Product ID: ${productId}, Action: ${action}`);
+      updateCartInBackend(productId, action);
+    }
+  });
+});
+
 function updateCartInBackend(productId, action) {
   // functionality to send data to django without reload.
   const url = "/cart/update_cart/";
@@ -71,3 +87,4 @@ function showCartAlertMessage(action) {
 }
 
 function turnOnSession() {}
+

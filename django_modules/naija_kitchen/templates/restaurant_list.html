@@ -88,6 +88,7 @@
                 filteredArray = cleanData.filter((restaurant) =>
                     restaurant["restaurant_name"].includes(e.target.value)
                 );
+                
                 if (filteredArray.length > 0) {
                     filteredArray.map((restaurant) => { 
                         productCard.innerHTML += `<div class="col-sm-4 mb-3"><div class="card"><img class="card-img-top img-fluid" src="http://127.0.0.1:8000/uploaded_images/${restaurant["restaurant_image"]}"
