@@ -22,29 +22,6 @@ class MenuCategoryViewSet(viewsets.ModelViewSet):
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
 
-def signup(request):
-    if request.method == 'POST':
-        form = SignupForm(request.POST)
-        if form.is_valid():
-            user = form.save()
-            auth_login(request, user)
-            return redirect('api-home')
-    else:
-        form = SignupForm()
-    return render(request, 'signup.html', {'signupForm': form})
-
-
-def login(request):
-    if request.method == 'POST':
-        form = LoginForm(request.POST)
-        if form.is_valid():
-            user = form.cleaned_data['user']
-            auth_login(request, user)  # Log in the user
-            return redirect('api-home')  # Redirect to your desired page
-    else:
-        form = LoginForm()
-    return render(request, "login.html", {'loginForm': form})
-
 
 def get_cart_items_from_session(request):
     cart_items_in_session = request.session.get('cartItems')
