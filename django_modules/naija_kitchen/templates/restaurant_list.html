@@ -84,7 +84,6 @@
             var searchInput = document.getElementById("searchInput");
 
             searchInput.addEventListener("keyup", (e) => {
-                const searchTerm = e.target.value.toLowerCase();
                 productCard.innerHTML = "";
                 filteredArray = cleanData.filter((restaurant) =>
                     restaurant["restaurant_name"].includes(e.target.value)

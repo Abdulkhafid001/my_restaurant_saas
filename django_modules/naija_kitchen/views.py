@@ -46,8 +46,6 @@ def login(request):
     return render(request, "login.html", {'loginForm': form})
 
 
-
-
 def get_cart_items_from_session(request):
     cart_items_in_session = request.session.get('cartItems')
     return cart_items_in_session
@@ -78,9 +76,11 @@ def get_menucategory_items(request, restaurant_slug,  category_slug):
     restaurant = get_object_or_404(Restaurant, slug=restaurant_slug)
     category = get_object_or_404(
         MenuCategory, restaurant=restaurant, slug=category_slug)
-    menu_items = MenuItem.objects.filter(category=category)
     cart_items = get_cart_items_from_session(request)
-    menu_items_json = json.dumps(list(MenuItem.objects.values()), cls=DecimalEncoder)
+
+    menu_items = MenuItem.objects.filter(category=category)
+    menu_items_json = json.dumps(list(menu_items.values()), cls=DecimalEncoder)
+    
     context = {'restaurant': restaurant,
                'category': category, 'menuitems': menu_items, 'cartItems': cart_items, 'menu_items_json': menu_items_json}
     return render(request, 'menu_items.html', context)
