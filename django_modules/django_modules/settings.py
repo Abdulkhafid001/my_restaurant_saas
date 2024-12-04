@@ -23,20 +23,18 @@ INSTALLED_APPS = [
     # 'accounts',
     'naija_kitchen',
     'cart',
-    'naijakitchen_auth',
+    'naijakitchen_auth',    
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    "whitenoise.runserver_nostatic",  # whitenoise new
     'django.contrib.staticfiles',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    "whitenoise.middleware.WhiteNoiseMiddleware",  # new
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
