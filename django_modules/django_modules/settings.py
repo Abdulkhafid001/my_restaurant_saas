@@ -20,10 +20,16 @@ ALLOWED_HOSTS = ["localhost", "127.0.0.1", 'testserver']
 
 INSTALLED_APPS = [
     'rest_framework',
+    # all_auth reqs
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.apple',
+    'allauth.socialaccount.providers.google',
     # 'accounts',
     'naija_kitchen',
     'cart',
-    'naijakitchen_auth',    
+    'naijakitchen_auth',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -40,8 +46,27 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'debug_toolbar.middleware.DebugToolbarMiddleware'
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
+    # allauth middleware
+    "allauth.account.middleware.AccountMiddleware",
 ]
+
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        'APP': {
+            'client_id': '123',
+            'secret': '456',
+            'key': ''
+        }
+    },
+    'apple': {
+        'APP': {
+            'client_id': 'YOUR_APPLE_CLIENT_ID',
+            'key': 'YOUR_TEAM_ID',
+            'secret': 'YOUR_APPLE_PRIVATE_KEY',
+        }
+    }
+}
 
 ROOT_URLCONF = 'django_modules.urls'
 
@@ -59,6 +84,12 @@ TEMPLATES = [
             ],
         },
     },
+]
+
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
 ]
 
 WSGI_APPLICATION = 'django_modules.wsgi.application'
