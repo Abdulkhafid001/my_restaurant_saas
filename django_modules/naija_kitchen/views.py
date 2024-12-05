@@ -1,4 +1,4 @@
-from django.shortcuts import redirect, render, get_object_or_404
+from django.shortcuts import redirect, render, get_object_or_404, HttpResponse
 from rest_framework import viewsets
 from rest_framework import permissions
 from .models import *
@@ -29,15 +29,19 @@ def get_cart_items_from_session(request):
 
 
 def get_all_restaurant(request):
-    visit_count = request.session.get('visit_count', 0)
-    visit_count += 1
-    request.session['visit_count'] = visit_count
-    cart_items = get_cart_items_from_session(request)
-    restaurants = Restaurant.objects.all()
-    restaurant_json = json.dumps(list(Restaurant.objects.values()))
-    context = {'restaurants': restaurants,
-               'visit_count': visit_count, 'cartItems': cart_items, 'restaurant_json': restaurant_json}
-    return render(request, 'restaurant_list.html', context)
+    if request.user.is_authenticated:
+
+        visit_count = request.session.get('visit_count', 0)
+        visit_count += 1
+        request.session['visit_count'] = visit_count
+        cart_items = get_cart_items_from_session(request)
+        restaurants = Restaurant.objects.all()
+        restaurant_json = json.dumps(list(Restaurant.objects.values()))
+        context = {'restaurants': restaurants,
+                'visit_count': visit_count, 'cartItems': cart_items, 'restaurant_json': restaurant_json}
+        return render(request, 'restaurant_list.html', context)
+    else:
+        return HttpResponse("Login to access app")
 
 
 def get_restaurant_menucategories(request, restaurant_slug):
