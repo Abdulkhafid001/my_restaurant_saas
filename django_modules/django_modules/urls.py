@@ -5,10 +5,10 @@ from django.conf import settings
 
 urlpatterns = [
     path("auth/", include("naijakitchen_auth.urls")),
-    path("accounts/", include("allauth.urls") , name=""),
     path("cart/", include("cart.urls")),
     path('admin/', admin.site.urls),
-    # path("", include("naija_kitchen.urls")),
+    path("", include("naija_kitchen.urls")),
+    # path("accounts/", include("allauth.urls") , name=""),
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

@@ -22,7 +22,6 @@ class MenuCategoryViewSet(viewsets.ModelViewSet):
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
 
-
 def get_cart_items_from_session(request):
     cart_items_in_session = request.session.get('cartItems')
     return cart_items_in_session
@@ -30,7 +29,6 @@ def get_cart_items_from_session(request):
 
 def get_all_restaurant(request):
     if request.user.is_authenticated:
-
         visit_count = request.session.get('visit_count', 0)
         visit_count += 1
         request.session['visit_count'] = visit_count
@@ -41,7 +39,7 @@ def get_all_restaurant(request):
                 'visit_count': visit_count, 'cartItems': cart_items, 'restaurant_json': restaurant_json}
         return render(request, 'restaurant_list.html', context)
     else:
-        return HttpResponse("Login to access app")
+        return redirect('admin/')
 
 
 def get_restaurant_menucategories(request, restaurant_slug):
@@ -61,7 +59,7 @@ def get_menucategory_items(request, restaurant_slug,  category_slug):
 
     menu_items = MenuItem.objects.filter(category=category)
     menu_items_json = json.dumps(list(menu_items.values()), cls=DecimalEncoder)
-    
+
     context = {'restaurant': restaurant,
                'category': category, 'menuitems': menu_items, 'cartItems': cart_items, 'menu_items_json': menu_items_json}
     return render(request, 'menu_items.html', context)
