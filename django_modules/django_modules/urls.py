@@ -4,6 +4,7 @@ from django.conf.urls.static import static
 from django.conf import settings
 
 urlpatterns = [
+    path("naijakitchen/", include("naijakitchen_admin.urls")),
     path("auth/", include("naijakitchen_auth.urls")),
     path("cart/", include("cart.urls")),
     path('admin/', admin.site.urls),

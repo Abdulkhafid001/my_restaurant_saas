@@ -30,6 +30,9 @@ INSTALLED_APPS = [
     'naija_kitchen',
     'cart',
     'naijakitchen_auth',
+    'naijakitchen_admin',
+
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
