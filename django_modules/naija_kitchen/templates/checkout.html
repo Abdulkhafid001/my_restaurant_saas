@@ -31,7 +31,7 @@
                                 <input type="text" class="form-control" id="deliveryAddress" required>
                             </div>
 
-                            <button type="submit" class="btn btn-success  w-100">Continue to payment</button>
+                            <button type="submit" class="btn btn-success  w-100">Complete Order</button>
                         </form>
                     </div>
                 </div>
@@ -80,16 +80,15 @@
             </div>
         </div>
     </div>
-    <script>
+    <script src="https://js.paystack.co/v2/inline.js"></script>
+    <script type="text/javascript">
         var total = Number("{{order.get_cart_total|floatformat:2}}");
         const checkoutForm = document.getElementById("checkoutForm");
 
         checkoutForm.addEventListener("submit", function (e) {
             e.preventDefault();
-            // alert("Form submitted! Continuing to payment...");
-            // getCheckoutFormData();
+            // payWithPaystack();
             getUserFormDataAndSendToBackend();
-            reloadPageAfterRequest();
         });
 
         function getCheckoutFormData() {
@@ -136,6 +135,23 @@
             window.location.reload();
         }
 
+        function payWithPaystack() {
+            let handler = PaystackPop.setup({
+                key: 'pk_test_f1f3e71ecd26d7adf5bca012948563734cfc3fc4',
+                phone: checkoutForm.phoneNumber.value,
+                amount: total,
+                currency: 'NGN',
+                onClose: function () {
+                    alert('Window Closed!')
+                },
+                callback: function (response) {
+                    let message = 'Payment complete! Reference: ' + response.reference; + ' call us now: to start working on delivery. +2349168424529';
+                    alert(message);
+                    getUserFormDataAndSendToBackend();
+                    reloadPageAfterRequest();
+                }
+            })
+        }
 
     </script>
     {% endblock %}
