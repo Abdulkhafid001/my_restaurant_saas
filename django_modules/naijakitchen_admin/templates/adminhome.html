@@ -1,11 +1,34 @@
+{% extends 'adminmain.html' %}
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title></title>
 </head>
+
 <body>
-    
+    {% block content %}
+    <h2>all restaurants</h2>
+    <ul>
+        {% for restaurant in all_restaurants %}
+        <li>{{restaurant.restaurant_name}}</li>
+        {% endfor %}
+    </ul>
+    <h2>all orders</h2>
+    <ul>
+        {% for order in all_orders %}
+        <li>{{order.restaurant}}</li>
+        <li>{{order.transaction_id}}</li>
+        <li>{{order.}}</li>
+        {% endfor %}
+    </ul>
+    <h2>all customers</h2>
+    <h2>total sales</h2>
+    <h2></h2>
+    {% endblock %}
 </body>
+
 </html>
