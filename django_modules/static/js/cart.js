@@ -6,11 +6,12 @@ for (let i = 0; i < cartUpdateBtn.length; i++) {
   cartUpdateBtn[i].addEventListener("click", function () {
     var productId = this.dataset.product;
     var action = this.dataset.action;
+    showCartAlertMessage(action);
     console.log(productId, action);
     if (user == "AnonymousUser") {
       console.log("authenticate to send data");
     } else {
-      updateCartInBackend(productId, action);
+      // updateCartInBackend(productId, action);
     }
   });
 }
@@ -26,7 +27,7 @@ document.addEventListener("DOMContentLoaded", function () {
       const action = button.getAttribute("data-action");
 
       console.log(`Product ID: ${productId}, Action: ${action}`);
-      updateCartInBackend(productId, action);
+      // updateCartInBackend(productId, action);
     }
   });
 });
@@ -49,6 +50,7 @@ function updateCartInBackend(productId, action) {
     .then((data) => {
       console.log("Response from server: ", data);
       // Optionally update the cart UI here
+      // cartItems = '{{cartItems}}'
       showCartAlertMessage(action);
     })
     // .then(location.reload())
@@ -62,29 +64,26 @@ function updateCartInSession() {}
 function updateCartFrontend() {}
 
 function showCartAlertMessage(action) {
-  addEventListener("DOMContentLoaded", (event) => {
-    var alertMessage = document.getElementById("show");
-    alertMessage.style.display = "block"; // Display the message
+  console.log("function called!");
+  var alertMessage = document.getElementById("show");
+  alertMessage.style.display = "block";
 
-    var join = action == "add" ? "to" : "from";
-    alertMessage.innerHTML = "you " + action + " " + join + " cart";
+  var join = action == "add" ? "to" : "from";
+  alertMessage.innerHTML = "you " + action + " " + join + " cart";
 
-    var closeButton = document.createElement("button");
-    closeButton.innerText = "Close";
-    closeButton.style.marginLeft = "10px";
-    closeButton.style.padding = "5px";
+  var closeButton = document.createElement("button");
+  closeButton.innerText = "Close";
+  closeButton.style.marginLeft = "10px";
+  closeButton.style.padding = "5px";
 
-    closeButton.addEventListener("click", function () {
-      alertMessage.style.display = "none";
-    });
-
-    if (!document.getElementById("closeBtn")) {
-      closeButton.setAttribute("id", "closeBtn"); // Add an id to the button
-      alertMessage.appendChild(closeButton);
-    }
-    console.log("show cart response called!");
+  closeButton.addEventListener("click", function () {
+    alertMessage.style.display = "none";
   });
+
+  if (!document.getElementById("closeBtn")) {
+    closeButton.setAttribute("id", "closeBtn");
+    alertMessage.appendChild(closeButton);
+  }
 }
 
 function turnOnSession() {}
-

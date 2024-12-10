@@ -11,11 +11,15 @@
 
 <body>
     {% block content %}
+    <!-- add to cart message -->
     <div class="container">
         <div>
             <h3 class="bg-success my-3" style="display: none;" id="show"></h3>
         </div>
     </div>
+
+
+    <!-- search container -->
     <div class="container h-100 mt-3 mb-3">
         <div class="row h-100 justify-content-center align-items-center">
             <div class="col-md-8 col-lg-6">
@@ -30,10 +34,9 @@
         </div>
     </div>
 
-
+    <!-- items container -->
     <div class="container mt-3 poppins-medium">
         <h5>Viewing {{category}} </h5>
-        <button id="testBtn">test code.</button>
         <div id="menuItemCard" class="row">
             {% for menuitem in menuitems %}
             <div class="col-sm-6 mb-3">
