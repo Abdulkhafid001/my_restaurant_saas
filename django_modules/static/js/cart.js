@@ -1,5 +1,6 @@
 console.log("user: ", user);
 
+
 var cartUpdateBtn = document.getElementsByClassName("update-cart");
 
 for (let i = 0; i < cartUpdateBtn.length; i++) {
@@ -11,14 +12,15 @@ for (let i = 0; i < cartUpdateBtn.length; i++) {
     if (user == "AnonymousUser") {
       console.log("authenticate to send data");
     } else {
-      // updateCartInBackend(productId, action);
+      updateCartInBackend(productId, action);
     }
   });
 }
 
-// cart.js
-document.addEventListener("DOMContentLoaded", function () {
-  const menuItemCard = document.getElementById("menuItemCard");
+
+document.addEventListener("DOMContentLoaded", () => {
+// menu search DOM
+const menuItemCard = document.getElementById("menuItemCard");
 
   menuItemCard.addEventListener("click", function (event) {
     if (event.target.closest(".update-cart")) {
@@ -27,13 +29,14 @@ document.addEventListener("DOMContentLoaded", function () {
       const action = button.getAttribute("data-action");
 
       console.log(`Product ID: ${productId}, Action: ${action}`);
-      // updateCartInBackend(productId, action);
+      updateCartInBackend(productId, action);
     }
   });
 });
 
 function updateCartInBackend(productId, action) {
-  // functionality to send data to django without reload.
+  console.log('fetch called!');
+  
   const url = "/cart/update_cart/";
 
   const data = { productId: productId, action: action };
@@ -49,9 +52,7 @@ function updateCartInBackend(productId, action) {
     .then((response) => response.json())
     .then((data) => {
       console.log("Response from server: ", data);
-      // Optionally update the cart UI here
-      // cartItems = '{{cartItems}}'
-      showCartAlertMessage(action);
+      document.getElementById("cartItems").innerHTML = data.cartItems;
     })
     // .then(location.reload())
     .catch((error) => {
@@ -64,7 +65,6 @@ function updateCartInSession() {}
 function updateCartFrontend() {}
 
 function showCartAlertMessage(action) {
-  console.log("function called!");
   var alertMessage = document.getElementById("show");
   alertMessage.style.display = "block";
 

@@ -7,14 +7,15 @@ from naija_kitchen.models import MenuItem
 import datetime
 
 
-
 def update_cart(request):
     print("view called!")
     if request.method == 'POST':
         data = json.loads(request.body.decode('utf-8'))
         product_id = data.get('productId')
         action = data.get('action')
+
         request.session['product_id_from_request'] = product_id
+
         user = request.user
         menu_item = MenuItem.objects.get(id=product_id)
         restaurant = menu_item.category.restaurant
@@ -22,11 +23,13 @@ def update_cart(request):
         print(user, 'has ordered : ', menu_item, ' from: ', restaurant)
 
         order, created = Order.objects.get_or_create(
-            user=user, restaurant=restaurant, complete = False)
+            user=user, restaurant=restaurant, complete=False)
         order_item, created = OrderItem.objects.get_or_create(
             product=menu_item, order=order
         )
-        request.session['cartItems'] = int(order.get_cart_items)
+        
+        request.session['cartItems'] = (int(order.get_cart_items) + 1)
+        test_cartItems = request.session.get('cartItems')
 
         print(f'User: {user}, Restaurant: {restaurant}, Order Created: {created}')
 
@@ -40,7 +43,7 @@ def update_cart(request):
         if order_item.quantity <= 0:
             order_item.delete()
             request.session['cartItems'] = ((request.session['cartItems']) - 1)
-        return JsonResponse("data sent successfully", safe=False, status=200)
+        return JsonResponse({'cartItems': test_cartItems}, safe=False, status=200)
     return JsonResponse({"error": "Invalid request try another!"}, safe=False, status=400)
 
 
@@ -98,3 +101,10 @@ def process_order(request):
         request.session.modified = True
 
     return JsonResponse({'message': 'Order being processed..'}, safe=False, status=200)
+
+
+def get_cart_items(request):
+    if request.user.is_authenticated:
+        data = cart_data(request)
+        cart_items = data['cartItems']
+        return cart_items
