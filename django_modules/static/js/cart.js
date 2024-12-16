@@ -53,6 +53,8 @@ function updateCartInBackend(productId, action) {
     .then((data) => {
       console.log("Response from server: ", data);
       document.getElementById("cartItems").innerHTML = data.cartItems;
+      document.getElementById("quantity").innerHTML = data.quantity;
+      document.getElementById("total").innerHTML = data.total;
     })
     // .then(location.reload())
     .catch((error) => {

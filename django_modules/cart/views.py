@@ -43,7 +43,8 @@ def update_cart(request):
         if order_item.quantity <= 0:
             order_item.delete()
             request.session['cartItems'] = ((request.session['cartItems']) - 1)
-        return JsonResponse({'cartItems': test_cartItems}, safe=False, status=200)
+        data = {'cartItems': test_cartItems, 'quantity': order_item.quantity, 'total': order.get_cart_total}
+        return JsonResponse(data, safe=False, status=200)
     return JsonResponse({"error": "Invalid request try another!"}, safe=False, status=400)
 
 
