@@ -140,25 +140,88 @@ body {
     max-width: 1000px;
     margin: 2rem auto;
 }
+
 .form-check-input:checked {
     background-color: #0d6efd;
     border-color: #0d6efd;
 }
+
 .btn-continue {
     background-color: #28a745;
     border-color: #28a745;
 }
+
 .btn-continue:hover {
     background-color: #218838;
     border-color: #1e7e34;
 }
+
 .order-summary {
     background-color: #fff;
     border-radius: 0.25rem;
     padding: 1rem;
 }
+
 .payment-icons img {
     height: 24px;
     margin-right: 0.5rem;
 }
+
 /*  <=============== END ==================> */
+
+/* <================ Admin sidebar styles ========> */
+/* Sidebar */
+.sidebar {
+    height: 100vh;
+    background-color: #FFD700;
+    padding: 10px;
+}
+
+.sidebar a {
+    color: #000;
+    font-weight: bold;
+    display: block;
+    padding: 10px 15px;
+    border-radius: 5px;
+    text-decoration: none;
+    margin-bottom: 5px;
+}
+
+.sidebar a:hover,
+.sidebar a.active {
+    background-color: #009714;
+    color: #fff;
+}
+
+/* Content */
+.content {
+    padding: 20px;
+    background-color: #fff;
+    min-height: 100vh;
+}
+
+/* Navbar */
+.navbar-custom {
+    background-color: #FFD700;
+    padding: 10px;
+}
+
+.navbar-custom .search-box {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 5px 10px;
+}
+
+/* Buttons */
+.btn-custom {
+    background-color: #009714;
+    color: white;
+    border: none;
+}
+
+.btn-custom:hover {
+    background-color: #007f0c;
+    color: white;
+}
+
+/* <================ END ========> */
