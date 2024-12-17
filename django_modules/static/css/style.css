@@ -173,16 +173,14 @@ body {
 /* Sidebar */
 .sidebar {
     height: 100vh;
-    background-color: #FFD700;
-    padding: 10px;
+    background-color: #28a745;
+    padding: 15px;
 }
 
 .sidebar a {
-    color: #000;
     font-weight: bold;
     display: block;
     padding: 10px 15px;
-    border-radius: 5px;
     text-decoration: none;
     margin-bottom: 5px;
 }
@@ -202,7 +200,7 @@ body {
 
 /* Navbar */
 .navbar-custom {
-    background-color: #FFD700;
+    background-color: #fff;
     padding: 10px;
 }
 
@@ -225,3 +223,53 @@ body {
 }
 
 /* <================ END ========> */
+
+/* <============= ORDERS SECTION ==========> */
+/* Status Boxes */
+.status-box {
+    border-radius: 8px;
+    padding: 20px;
+    margin: 10px;
+    text-align: center;
+    font-weight: bold;
+    color: #333;
+    border: 1px solid #ccc;
+}
+
+.new-orders {
+    background-color: #FFD700;
+}
+
+.preparing {
+    background-color: #FFFAE0;
+    border-color: #FFD700;
+}
+
+.ready {
+    background-color: #E8FDE8;
+    border-color: #009714;
+    color: #009714;
+}
+
+.completed {
+    background-color: #f4f4f4;
+}
+
+/* Buttons */
+.btn-custom {
+    background-color: #009714;
+    color: white;
+    border: none;
+}
+
+/* Table Actions */
+.action-icons {
+    cursor: pointer;
+    margin: 0 5px;
+}
+
+.action-icons:hover {
+    color: #009714;
+}
+
+/* <============= END ==========> */
