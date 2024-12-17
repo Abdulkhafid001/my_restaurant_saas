@@ -27,9 +27,6 @@ def update_cart(request):
         order_item, created = OrderItem.objects.get_or_create(
             product=menu_item, order=order
         )
-        
-        request.session['cartItems'] = (int(order.get_cart_items) + 1)
-        test_cartItems = request.session.get('cartItems')
 
         print(f'User: {user}, Restaurant: {restaurant}, Order Created: {created}')
 
@@ -43,7 +40,7 @@ def update_cart(request):
         if order_item.quantity <= 0:
             order_item.delete()
             request.session['cartItems'] = ((request.session['cartItems']) - 1)
-        data = {'cartItems': test_cartItems, 'quantity': order_item.quantity, 'total': order.get_cart_total}
+        data = {'cartItems': order.get_cart_items, 'quantity': order_item.quantity, 'total': order.get_cart_total}
         return JsonResponse(data, safe=False, status=200)
     return JsonResponse({"error": "Invalid request try another!"}, safe=False, status=400)
 

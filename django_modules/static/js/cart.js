@@ -1,7 +1,6 @@
 console.log("user: ", user);
 
-
-var cartUpdateBtn = document.getElementsByClassName("update-cart");
+var cartUpdateBtn = document.getElementsByClassName("update-cart-page");
 
 for (let i = 0; i < cartUpdateBtn.length; i++) {
   cartUpdateBtn[i].addEventListener("click", function () {
@@ -17,26 +16,25 @@ for (let i = 0; i < cartUpdateBtn.length; i++) {
   });
 }
 
-
-document.addEventListener("DOMContentLoaded", () => {
+// document.addEventListener("DOMContentLoaded", () => {
 // menu search DOM
-const menuItemCard = document.getElementById("menuItemCard");
+// let menuItemCard = document.getElementById("searchMenu");
 
-  menuItemCard.addEventListener("click", function (event) {
-    if (event.target.closest(".update-cart")) {
-      const button = event.target.closest(".update-cart");
-      const productId = button.getAttribute("data-product");
-      const action = button.getAttribute("data-action");
+menuItemCard.addEventListener("click", function (event) {
+  if (event.target.closest(".update-cart")) {
+    const button = event.target.closest(".update-cart");
+    const productId = button.getAttribute("data-product");
+    const action = button.getAttribute("data-action");
 
-      console.log(`Product ID: ${productId}, Action: ${action}`);
-      updateCartInBackend(productId, action);
-    }
-  });
+    console.log(`Product ID: ${productId}, Action: ${action}`);
+    updateCartInBackend(productId, action);
+  }
 });
+// });
 
 function updateCartInBackend(productId, action) {
-  console.log('fetch called!');
-  
+  console.log("fetch called!");
+
   const url = "/cart/update_cart/";
 
   const data = { productId: productId, action: action };

@@ -31,7 +31,6 @@
             <!-- Cart Items -->
             <div class="col-lg-8">
                 <h5 class="mb-3">Shopping cart</h5>
-                <p class="text-muted mb-4">You have {{cartItems}} item in your cart</p>
 
                 <!-- Cart Item 1 -->
                 {% for item in items %}
@@ -48,10 +47,10 @@
                         <h5 class="text-center"></h5>
                         <div class="d-flex align-items-center gap-4">
                             <div class="quantity-control d-flex align-items-center border rounded">
-                                <button class="quantity-btn px-2 update-cart" data-product="{{item.product.id}}"
+                                <button class="quantity-btn px-2 update-cart-page" data-product="{{item.product.id}}"
                                     data-action="remove">-</button>
                                     <span id="quantity" class="px-3">{{item.quantity}}</span>
-                                <button class="quantity-btn px-2 update-cart" data-product="{{item.product.id}}"
+                                <button class="quantity-btn px-2 update-cart-page" data-product="{{item.product.id}}"
                                     data-action="add">+</button>
                             </div>
                             <div class="text-nowrap"></div>

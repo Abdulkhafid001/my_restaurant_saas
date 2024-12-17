@@ -88,7 +88,7 @@
         checkoutForm.addEventListener("submit", function (e) {
             e.preventDefault();
             // payWithPaystack();
-            getUserFormDataAndSendToBackend();
+            sendCheckoutFormDataToBackend();
         });
 
         function getCheckoutFormData() {
@@ -125,10 +125,7 @@
             });
         }
 
-        function getUserFormDataAndSendToBackend() {
-            getCheckoutFormData();
-            sendCheckoutFormDataToBackend();
-        }
+       
 
         function reloadPageAfterRequest() {
             window.location.href = "{% url 'all_restaurants' %}";
