@@ -33,17 +33,15 @@
                 <h3 class="text-center mb-3 text-warning">NaijaKitchen Admin</h3>
                 <nav>
                     <a href="#overview" class="tab-link active" data-target="overview"><i></i> Overview</a>
-                    <a href="#restaurants" class="tab-link text-white" data-target="restaurants"><i></i>
-                        Restaurants</a>
+
                     <a href="#orders" class="tab-link text-white" data-target="orders"><i></i> Orders</a>
                     <a href="#menu" class="tab-link text-white" data-target="menu"><i></i> Menu</a>
-                    <a href="#inventory" class="tab-link text-white" data-target="inventory"><i></i> Inventory</a>
                     <a href="#settings" class="tab-link text-white" data-target="settings"><i></i> Settings</a>
                 </nav>
             </div>
 
             <!-- Main Content Area -->
-            <div class="col-md-8 bg-light">
+            <div class="col-md-10 bg-light">
                 <!-- Navbar -->
                 <nav class="navbar navbar-custom">
                     <div class="ml-auto">
@@ -53,16 +51,11 @@
                 </nav>
 
                 <!-- Tabs Content -->
-                <div id="content" class="content text-center">
+                <div id="content" class="content">
                     <!-- OVERVIEW -->
                     <div id="overview" class="tab-content active">
                         <h2>Dashboard</h2>
                         <p>Welcome to the overview section of RestaurantOS.</p>
-                    </div>
-                    <!-- RESTAURANTS -->
-                    <div id="restaurants" class="tab-content" style="display: none">
-                        <h2>Restaurants</h2>
-                        <p>Manage your restaurants here.</p>
                     </div>
                     <!-- ORDERS -->
                     <div id="orders" class="tab-content" style="display: none">
@@ -155,13 +148,207 @@
                     <!-- MENU -->
                     <div id="menu" class="tab-content" style="display: none">
                         <h2>Menu</h2>
-                        <p>Configure your menu items here.</p>
+                        <div class="container-fluid">
+                            <div class="d-flex justify-content-between align-items-center mb-4">
+                                <h1 class="h3 mb-0"></h1>
+                                <div class="d-flex gap-2">
+                                    <button class="btn btn-warning" data-bs-toggle="modal"
+                                        data-bs-target="#categoryModal">
+                                        <i class="bi bi-plus"></i> Add Category
+                                    </button>
+                                    <button class="btn btn-success" data-bs-toggle="modal"
+                                        data-bs-target="#menuItemModal">
+                                        <i class="bi bi-plus"></i> Add Menu Item
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <!-- Categories Sidebar -->
+                                <div class="col-md-4">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <h5 class="card-title mb-3">Categories</h5>
+                                            <div class="d-flex flex-column gap-1">
+                                                <a href="#" class="category-item active">
+                                                    <span>Breakfast</span>
+                                                    <span class="text-muted">(12)</span>
+                                                </a>
+                                                <a href="#" class="category-item">
+                                                    <span>Lunch</span>
+                                                    <span class="text-muted">(18)</span>
+                                                </a>
+                                                <a href="#" class="category-item">
+                                                    <span>Dinner</span>
+                                                    <span class="text-muted">(8)</span>
+                                                </a>
+                                                <a href="#" class="category-item">
+                                                    <span>Beverages</span>
+                                                    <span class="text-muted">(15)</span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Menu Items Grid -->
+
+                                <div class="col-md-8">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="menu-item-card">
+                                                <div class="menu-item-image">
+                                                    <span>Menu Item</span>
+                                                    <span class="status-badge">Available</span>
+                                                </div>
+                                                <div class="p-3">
+                                                    <h5 class="mb-2">Item Name</h5>
+                                                    <p class="text-muted mb-3">Description of the menu item goes here...
+                                                    </p>
+                                                    <div class="d-flex justify-content-between align-items-center">
+                                                        <span class="item-price">$12.99</span>
+                                                        <div>
+                                                            <i class="bi bi-pencil action-icon"></i>
+                                                            <i class="bi bi-trash action-icon delete-icon"></i>
+                                                        </div>
+                                                    </div>
+                                                    <div class="mb-5"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Add Category Modal -->
+                        <div class="modal fade" id="categoryModal" tabindex="-1">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title">Add Category</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form action="{% url 'add_category' %}" method="POST" id="categoryForm">
+                                            {% csrf_token %}
+                                            <div class="mb-3">
+                                                <label class="form-label">Category Name</label>
+                                                <input type="text" name="category" class="form-control" required>
+                                                <label class="form-label">Restaurant Name</label>
+                                                <select name="restaurant_name" id="restaurant_name" required>
+                                                    <option value="">Select restaurant</option>
+                                                    {% for restaurant in all_restaurants %}
+                                                    <option value="{{restaurant.restaurant_name}}">{{restaurant.restaurant_name}}</option>
+                                                    {% endfor%}
+                                                </select>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary"
+                                            data-bs-dismiss="modal">Cancel</button>
+                                        <button type="submit" form="categoryForm" class="btn btn-warning">Add
+                                            Category</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Add Menu Item Modal -->
+                        <div class="modal fade" id="menuItemModal" tabindex="-1">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title">Add Menu Item</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form action="" method="post" enctype="multipart/form-data" id="menuItemForm">
+                                            {% csrf_token %}
+                                            <div class="mb-3">
+                                                <label class="form-label">Item Name</label>
+                                                <input type="text" class="form-control" required>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class="form-label">Description</label>
+                                                <textarea class="form-control" rows="3" required></textarea>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class="form-label">Item Image</label>
+                                                <input type="file" name="item_image" id="item_image" accept="image/*"
+                                                    required>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class="form-label">Price</label>
+                                                <input type="number" class="form-control" step="0.01" required>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class="form-label">Category</label>
+                                                <select class="form-select" required>
+                                                    <option value="">Select category</option>
+                                                    <option value="appetizers">Appetizers</option>
+                                                    <option value="main">Main Course</option>
+                                                    <option value="desserts">Desserts</option>
+                                                    <option value="beverages">Beverages</option>
+                                                </select>
+                                            </div>
+                                            <div class="mb-3">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" id="availableCheck"
+                                                        checked>
+                                                    <label class="form-check-label" for="availableCheck">
+                                                        Available
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary"
+                                            data-bs-dismiss="modal">Cancel</button>
+                                        <button type="submit" form="menuItemForm" class="btn btn-success">Add Menu
+                                            Item</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <script>
+                            // Handle form submissions
+                            document.getElementById('categoryForm').addEventListener('submit', function (e) {
+                                //e.preventDefault();
+                                // Add your category creation logic here
+                                const modal = bootstrap.Modal.getInstance(document.getElementById('categoryModal'));
+                                modal.hide();
+                            });
+
+                            document.getElementById('menuItemForm').addEventListener('submit', function (e) {
+                                e.preventDefault();
+                                // Add your menu item creation logic here
+                                const modal = bootstrap.Modal.getInstance(document.getElementById('menuItemModal'));
+                                modal.hide();
+                            });
+
+                            // Handle category selection
+                            document.querySelectorAll('.category-item').forEach(item => {
+                                item.addEventListener('click', function (e) {
+                                    e.preventDefault();
+                                    document.querySelector('.category-item.active')?.classList.remove('active');
+                                    this.classList.add('active');
+                                });
+                            });
+
+                            // Handle delete button clicks
+                            document.querySelectorAll('.delete-icon').forEach(icon => {
+                                icon.addEventListener('click', function () {
+                                    if (confirm('Are you sure you want to delete this item?')) {
+                                        // Add your delete logic here
+                                    }
+                                });
+                            });
+                        </script>
                     </div>
-                    <!-- INVENTORY -->
-                    <div id="inventory" class="tab-content" style="display: none">
-                        <h2>Inventory</h2>
-                        <p>Track and manage inventory.</p>
-                    </div>
+
                     <!-- SETTINGS -->
                     <div id="settings" class="tab-content" style="display: none">
                         <h2>Settings</h2>
@@ -171,6 +358,8 @@
             </div>
         </div>
     </div>
+
+
     <script>
         document.addEventListener("DOMContentLoaded", function () {
             const links = document.querySelectorAll(".tab-link");

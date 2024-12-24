@@ -7,7 +7,7 @@ class Restaurant(models.Model):
     restaurant_name = models.CharField(max_length=200)
     slug = models.SlugField(max_length=200, blank=True)
     restaurant_address = models.CharField(max_length=200)
-    restaurant_image = models.ImageField(null=True, blank=True)
+    restaurant_image = models.ImageField(null=True, blank=True, upload_to='uploaded_images')
     restaurant_contact = models.CharField(max_length=200)
     restaurant_owner = models.ForeignKey(
         'auth.User', blank=True, null=True, on_delete=models.CASCADE, related_name='user_restaurants')
@@ -37,7 +37,7 @@ class MenuCategory(models.Model):
     name = models.CharField(max_length=100)
     slug = models.SlugField(max_length=200, blank=True)
     description = models.TextField(blank=True, null=True)
-    image = models.ImageField(blank=True, null=True)
+    image = models.ImageField(blank=True, null=True, upload_to='uploaded_images')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -75,7 +75,7 @@ class MenuItem(models.Model):
     is_available = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    image = models.ImageField(blank=True, null=True)
+    image = models.ImageField(blank=True, null=True, upload_to='uploaded_images')
 
     class Meta:
         ordering = ['name']
