@@ -33,7 +33,6 @@
                 <h3 class="text-center mb-3 text-warning">NaijaKitchen Admin</h3>
                 <nav>
                     <a href="#overview" class="tab-link active" data-target="overview"><i></i> Overview</a>
-
                     <a href="#orders" class="tab-link text-white" data-target="orders"><i></i> Orders</a>
                     <a href="#menu" class="tab-link text-white" data-target="menu"><i></i> Menu</a>
                     <a href="#settings" class="tab-link text-white" data-target="settings"><i></i> Settings</a>
@@ -182,10 +181,6 @@
                                                     <span>Dinner</span>
                                                     <span class="text-muted">(8)</span>
                                                 </a>
-                                                <a href="#" class="category-item">
-                                                    <span>Beverages</span>
-                                                    <span class="text-muted">(15)</span>
-                                                </a>
                                             </div>
                                         </div>
                                     </div>
@@ -233,13 +228,22 @@
                                         <form action="{% url 'add_category' %}" method="POST" id="categoryForm">
                                             {% csrf_token %}
                                             <div class="mb-3">
-                                                <label class="form-label">Category Name</label>
-                                                <input type="text" name="category" class="form-control" required>
-                                                <label class="form-label">Restaurant Name</label>
-                                                <select name="restaurant_name" id="restaurant_name" required>
+
+                                                <input type="text" name="category" class="form-control mb-2"
+                                                    placeholder="category name" required>
+                                                <textarea class="form-control mb-3" rows="3"
+                                                    placeholder="Category Description" required></textarea>
+                                                <div class="mb-3">
+                                                    <label class="form-label">Category Image</label>
+                                                    <input type="file" name="category_image" id="category_image"
+                                                        accept="image/*" required>
+                                                </div>
+                                                <select class="form-select mb-3" name="restaurant_name"
+                                                    id="restaurant_name" required>
                                                     <option value="">Select restaurant</option>
                                                     {% for restaurant in all_restaurants %}
-                                                    <option value="{{restaurant.restaurant_name}}">{{restaurant.restaurant_name}}</option>
+                                                    <option value="{{restaurant.restaurant_name}}">
+                                                        {{restaurant.restaurant_name}}</option>
                                                     {% endfor%}
                                                 </select>
                                             </div>
@@ -264,38 +268,43 @@
                                         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                                     </div>
                                     <div class="modal-body">
-                                        <form action="" method="post" enctype="multipart/form-data" id="menuItemForm">
+                                        <form action="{% url 'add_menuitem' %}" method="post" enctype="multipart/form-data"
+                                            id="menuItemForm">
                                             {% csrf_token %}
                                             <div class="mb-3">
-                                                <label class="form-label">Item Name</label>
-                                                <input type="text" class="form-control" required>
-                                            </div>
-                                            <div class="mb-3">
-                                                <label class="form-label">Description</label>
-                                                <textarea class="form-control" rows="3" required></textarea>
-                                            </div>
-                                            <div class="mb-3">
-                                                <label class="form-label">Item Image</label>
-                                                <input type="file" name="item_image" id="item_image" accept="image/*"
+                                                <input type="text" name="name" class="form-control mb-3" placeholder="Item Name"
                                                     required>
                                             </div>
                                             <div class="mb-3">
-                                                <label class="form-label">Price</label>
-                                                <input type="number" class="form-control" step="0.01" required>
+                                                <textarea class="form-control" rows="3" name="description" placeholder="Description"
+                                                    required></textarea>
                                             </div>
                                             <div class="mb-3">
-                                                <label class="form-label">Category</label>
-                                                <select class="form-select" required>
+                                                <input type="file" name="image" id="item_image"
+                                                    placeholder="Item Image" accept="image/*" required>
+                                            </div>
+                                            <div class="mb-3">
+                                                <input type="number" name="price" class="form-control mb-3" placeholder="Price"
+                                                    step="0.01" required>
+                                            </div>
+                                            <div class="mb-3">
+                                                <select class="form-select mb-3" name="category" required>
                                                     <option value="">Select category</option>
-                                                    <option value="appetizers">Appetizers</option>
-                                                    <option value="main">Main Course</option>
-                                                    <option value="desserts">Desserts</option>
-                                                    <option value="beverages">Beverages</option>
+                                                    {% for category in categories_for_aba %}
+                                                    <option value="{{category.name}}">{{category.name}}</option>
+                                                    {% endfor%}
+                                                </select>
+                                            </div>
+                                            <div class="mb-3">
+                                                <select class="form-select mb-3" name="restaurant_name"
+                                                    id="restaurant_name" required>
+                                                    <option value="">Select restaurant</option>
+                                                    <option value="Aba Food Market">Aba Food Market</option>
                                                 </select>
                                             </div>
                                             <div class="mb-3">
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" id="availableCheck"
+                                                    <input class="form-check-input" name="available" type="checkbox" id="availableCheck"
                                                         checked>
                                                     <label class="form-check-label" for="availableCheck">
                                                         Available
@@ -316,14 +325,14 @@
                         <script>
                             // Handle form submissions
                             document.getElementById('categoryForm').addEventListener('submit', function (e) {
-                                //e.preventDefault();
+                                // e.preventDefault();
                                 // Add your category creation logic here
                                 const modal = bootstrap.Modal.getInstance(document.getElementById('categoryModal'));
                                 modal.hide();
                             });
 
                             document.getElementById('menuItemForm').addEventListener('submit', function (e) {
-                                e.preventDefault();
+                                // e.preventDefault();
                                 // Add your menu item creation logic here
                                 const modal = bootstrap.Modal.getInstance(document.getElementById('menuItemModal'));
                                 modal.hide();

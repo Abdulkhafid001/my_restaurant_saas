@@ -1,13 +1,14 @@
 from django.db import models
 from django.db.models import UniqueConstraint
-from django.urls import reverse
+from django.utils.text import slugify
 
 
 class Restaurant(models.Model):
     restaurant_name = models.CharField(max_length=200)
     slug = models.SlugField(max_length=200, blank=True)
     restaurant_address = models.CharField(max_length=200)
-    restaurant_image = models.ImageField(null=True, blank=True, upload_to='uploaded_images')
+    restaurant_image = models.ImageField(
+        null=True, blank=True, upload_to='uploaded_images')
     restaurant_contact = models.CharField(max_length=200)
     restaurant_owner = models.ForeignKey(
         'auth.User', blank=True, null=True, on_delete=models.CASCADE, related_name='user_restaurants')
@@ -21,7 +22,6 @@ class Restaurant(models.Model):
     def __str__(self) -> str:
         return self.restaurant_name
 
-   
     @property
     def imageURL(self):
         try:
@@ -37,9 +37,16 @@ class MenuCategory(models.Model):
     name = models.CharField(max_length=100)
     slug = models.SlugField(max_length=200, blank=True)
     description = models.TextField(blank=True, null=True)
-    image = models.ImageField(blank=True, null=True, upload_to='uploaded_images')
+    image = models.ImageField(blank=True, null=True,
+                              upload_to='static/uploaded_images')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+    def save(self, *args, **kwargs):
+        # Automatically generate slug if not provided
+        if not self.slug:
+            self.slug = slugify(self.name)
+            super().save(*args, **kwargs)
 
     class Meta:
         constraints = [
@@ -53,8 +60,6 @@ class MenuCategory(models.Model):
 
     def __str__(self):
         return f"{self.name} ({self.restaurant.restaurant_name})"
-
-  
 
     @property
     def imageURL(self):
@@ -75,7 +80,14 @@ class MenuItem(models.Model):
     is_available = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    image = models.ImageField(blank=True, null=True, upload_to='uploaded_images')
+    image = models.ImageField(blank=True, null=True,
+                              upload_to='uploaded_images')
+
+    def save(self, *args, **kwargs):
+        # Automatically generate slug if not provided
+        if not self.slug:
+            self.slug = slugify(self.name)
+            super().save(*args, **kwargs)
 
     class Meta:
         ordering = ['name']
@@ -95,8 +107,6 @@ class MenuItem(models.Model):
         except:
             url = ''
         return url
-
-    
 
 
 class User(models.Model):
