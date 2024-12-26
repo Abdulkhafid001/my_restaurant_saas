@@ -19,19 +19,25 @@ def get_admin_home(request):
     return render(request, 'adminmain.html', context)
 
 
-def count_items():
-    breakfast_category = MenuCategory.objects.filter(name="Breakfast").filter(restaurant=aba_restaurant)
-    # lunch_category = MenuCategory.objects.filter(name="Lunch")
-    # dinner_category = MenuCategory.objects.filter(name="Dinner")
 
-    breakfast_count = MenuItem.objects.filter(category=breakfast_category).count()
-    # lunch_count = MenuItem.objects.filter(category=lunch_category).count()
-    # dinner_count = MenuItem.objects.filter(category=dinner_category).count()
+
+def count_items():
+    breakfast_category = MenuCategory.objects.filter(
+        name="Breakfast").filter(restaurant=aba_restaurant).first()
+    lunch_category = MenuCategory.objects.filter(
+        name="Lunch").filter(restaurant=aba_restaurant).first()
+    dinner_category = MenuCategory.objects.filter(
+        name="Dinner").filter(restaurant=aba_restaurant).first()
+
+    breakfast_count = MenuItem.objects.filter(
+        category=breakfast_category).count()
+    lunch_count = MenuItem.objects.filter(category=lunch_category).count()
+    dinner_count = MenuItem.objects.filter(category=dinner_category).count()
 
     return {
         "breakfast_count": breakfast_count,
-        # "lunch_count": lunch_count,
-        # "dinner_count": dinner_count,
+        "lunch_count": lunch_count,
+        "dinner_count": dinner_count,
     }
 
 
