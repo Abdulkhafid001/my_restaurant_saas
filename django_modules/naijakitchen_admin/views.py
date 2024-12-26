@@ -12,29 +12,26 @@ def get_admin_home(request):
     all_menu_items = MenuItem.objects.all()
     menu_categories_for_aba = MenuCategory.objects.filter(
         restaurant=aba_restaurant)
-    
-
-    
 
     context = {'all_restaurants': all_restaurants, 'all_orders': all_orders,
-               'all_menu': all_menu_category, 'all_menu_items': all_menu_items, 'categories_for_aba': menu_categories_for_aba}
+               'all_menu': all_menu_category, 'all_menu_items': all_menu_items, 'categories_for_aba': menu_categories_for_aba,
+               'items_count': count_items()}
     return render(request, 'adminmain.html', context)
 
 
 def count_items():
-    breakfast_category = MenuCategory.objects.filter(name="Breakfast")
-    lunch_category = MenuCategory.objects.filter(name="Lunch")
-    dinner_category = MenuCategory.objects.filter(name="Dinner")
+    breakfast_category = MenuCategory.objects.filter(name="Breakfast").filter(restaurant=aba_restaurant)
+    # lunch_category = MenuCategory.objects.filter(name="Lunch")
+    # dinner_category = MenuCategory.objects.filter(name="Dinner")
 
-    breakfast_count = MenuItem.objects.filter(
-        category=breakfast_category).count()
-    lunch_count = MenuItem.objects.filter(category=lunch_category).count()
-    dinner_count = MenuItem.objects.filter(category=dinner_category).count()
+    breakfast_count = MenuItem.objects.filter(category=breakfast_category).count()
+    # lunch_count = MenuItem.objects.filter(category=lunch_category).count()
+    # dinner_count = MenuItem.objects.filter(category=dinner_category).count()
 
     return {
         "breakfast_count": breakfast_count,
-        "lunch_count": lunch_count,
-        "dinner_count": dinner_count,
+        # "lunch_count": lunch_count,
+        # "dinner_count": dinner_count,
     }
 
 
