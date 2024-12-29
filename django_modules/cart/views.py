@@ -20,7 +20,7 @@ def update_cart(request):
         menu_item = MenuItem.objects.get(id=product_id)
         restaurant = menu_item.category.restaurant
 
-        print(user, 'has ordered : ', menu_item, ' from: ', restaurant)
+        # print(user, 'has ordered : ', menu_item, ' from: ', restaurant)
 
         order, created = Order.objects.get_or_create(
             user=user, restaurant=restaurant, complete=False)
@@ -28,16 +28,19 @@ def update_cart(request):
             product=menu_item, order=order
         )
 
-        print(f'User: {user}, Restaurant: {restaurant}, Order Created: {created}')
+        # print(f'User: {user}, Restaurant: {restaurant}, Order Created: {created}')
 
         if action == 'add':
             order_item.quantity = (order_item.quantity + 1)
         elif action == 'remove':
             order_item.quantity = (order_item.quantity - 1)
+        elif action == 'delete':
+            # print('delete item')
+            order_item.delete()
 
         order_item.save()
 
-        if order_item.quantity <= 0:
+        if order_item.quantity < 1:
             order_item.delete()
             request.session['cartItems'] = ((request.session['cartItems']) - 1)
         data = {'cartItems': order.get_cart_items, 'quantity': order_item.quantity, 'total': order.get_cart_total}
@@ -97,6 +100,7 @@ def process_order(request):
         del request.session['product_id_from_request']
         request.session['cartItems'] = 0
         request.session.modified = True
+        # add code to redirect to order success
 
     return JsonResponse({'message': 'Order being processed..'}, safe=False, status=200)
 

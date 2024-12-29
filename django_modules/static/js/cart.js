@@ -54,7 +54,7 @@ function updateCartInBackend(productId, action) {
       document.getElementById("quantity").innerHTML = data.quantity;
       document.getElementById("total").innerHTML = data.total;
     })
-    // .then(location.reload())
+    .then(location.reload())
     .catch((error) => {
       console.error("Error", error);
     });
