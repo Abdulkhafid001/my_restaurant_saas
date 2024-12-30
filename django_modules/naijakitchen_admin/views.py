@@ -1,3 +1,5 @@
+import json
+from django.http import JsonResponse
 from django.shortcuts import render, HttpResponse, redirect
 from naija_kitchen.models import Restaurant, MenuCategory, MenuItem
 from cart.models import Order
@@ -17,8 +19,6 @@ def get_admin_home(request):
                'all_menu': all_menu_category, 'all_menu_items': all_menu_items, 'categories_for_aba': menu_categories_for_aba,
                'items_count': count_items()}
     return render(request, 'adminmain.html', context)
-
-
 
 
 def count_items():
@@ -92,4 +92,14 @@ def add_menu_item(request):
 
 
 def order_get(request):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        order_status = data.get('orderStatus')
+        order_date = data.get('orderDate')
+        print(order_status, order_date)
+        return JsonResponse({'message': 'Filter order by status or date.'}, safe=False)
+    return JsonResponse({'message': 'Invalid request method.'}, safe=False)
+
+
+def get_orders_with_pagination():
     pass

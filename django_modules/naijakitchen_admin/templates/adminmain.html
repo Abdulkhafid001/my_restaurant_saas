@@ -63,17 +63,17 @@
                             <p>select to sort orders</p>
                             <div class="tab-pane fade show active" id="orders" role="tabpanel">
                                 <!-- Filter and Date -->
-                               <form action="{% url 'order_'%}" method="post">
+                               <form action="{% url 'get_order'%}" method="post">
                                 <div class="row mb-3">
                                     <div class="col-md-6">
-                                        <select id="orderStatus" class="form-control">
+                                        <select id="orderStatus" name="status" class="form-control">
                                             <option>Delivered</option>
                                             <option>Preparing</option>
                                             <option>Ready</option>
                                         </select>
                                     </div>
                                     <div class="col-md-6">
-                                        <input id="orderDate" type="date" class="form-control">
+                                        <input id="orderDate" name="orderdate" type="date" class="form-control">
                                     </div>
                                 </div>
                                </form>
@@ -393,6 +393,7 @@
             });
         });
     </script>
+    <script type="text/javascript" src="{% static 'js/adminorders.js'%}"></script>
     {% block content %} {% endblock content %}
 </body>
 
