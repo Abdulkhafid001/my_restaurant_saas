@@ -8,7 +8,14 @@ class Order(models.Model):
         'naija_kitchen.Restaurant', on_delete=models.SET_NULL, null=True, blank=True)
     date_ordered = models.DateTimeField(auto_now_add=True)
     complete = models.BooleanField(default=False)
-    transaction_id = models.CharField(max_length=100, null=True)
+    transaction_id = models.CharField(max_length=20, blank=True)
+    ORDER_STATUS_CHOICES = [
+        ('Preparing', 'Preparing'),
+        ('Ready', 'Ready'),
+        ('Cancelled', 'Cancelled'),
+        ('Completed', 'Completed'),
+    ]
+    status = models.CharField(max_length=20, null=True, choices=ORDER_STATUS_CHOICES)
 
     def __str__(self):
         return str(self.id)

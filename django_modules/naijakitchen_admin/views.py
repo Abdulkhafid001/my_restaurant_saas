@@ -89,3 +89,7 @@ def add_menu_item(request):
                 )
                 pass
             return HttpResponse("<p>Item added successfully</p><a href='http://127.0.0.1:8000/naijakitchen/admin/'>go back home</a>")
+
+
+def order_get(request):
+    pass

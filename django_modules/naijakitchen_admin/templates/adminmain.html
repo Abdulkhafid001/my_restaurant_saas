@@ -60,20 +60,23 @@
                     <div id="orders" class="tab-content" style="display: none">
                         <div class="container">
                             <h2>Order Tracking</h2>
+                            <p>select to sort orders</p>
                             <div class="tab-pane fade show active" id="orders" role="tabpanel">
                                 <!-- Filter and Date -->
+                               <form action="{% url 'order_'%}" method="post">
                                 <div class="row mb-3">
                                     <div class="col-md-6">
-                                        <select class="form-control">
+                                        <select id="orderStatus" class="form-control">
                                             <option>Delivered</option>
                                             <option>Preparing</option>
                                             <option>Ready</option>
                                         </select>
                                     </div>
                                     <div class="col-md-6">
-                                        <input type="date" class="form-control">
+                                        <input id="orderDate" type="date" class="form-control">
                                     </div>
                                 </div>
+                               </form>
 
                                 <!-- Status Boxes -->
                                 <div class="row">
