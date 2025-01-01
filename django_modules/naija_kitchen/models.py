@@ -71,8 +71,6 @@ class MenuCategory(models.Model):
 
 
 class MenuItem(models.Model):
-    restaurant = models.ForeignKey(
-        Restaurant, on_delete=models.CASCADE, related_name='restaurant_menu_items')
     category = models.ForeignKey(
         MenuCategory, on_delete=models.CASCADE, related_name='menu_items')
     name = models.CharField(max_length=200)
