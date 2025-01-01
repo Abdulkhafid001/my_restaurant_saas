@@ -1,3 +1,4 @@
+import datetime
 import json
 from django.http import JsonResponse
 from django.shortcuts import render, HttpResponse, redirect
@@ -6,17 +7,17 @@ from cart.models import Order
 
 aba_restaurant = Restaurant.objects.get(restaurant_name='Aba Food Market')
 
+filtered_orders = Order.objects.filter(
+    status='Preparing', date_ordered__gte=datetime.date.today())
+
 
 def get_admin_home(request):
-    all_restaurants = Restaurant.objects.all()
-    all_orders = Order.objects.all()
-    all_menu_category = MenuCategory.objects.all()
-    all_menu_items = MenuItem.objects.all()
-    menu_categories_for_aba = MenuCategory.objects.filter(
+    menu_items = MenuItem.objects.all(restaurant=aba_restaurant)
+    menu_categories = MenuCategory.objects.filter(
         restaurant=aba_restaurant)
-
-    context = {'all_restaurants': all_restaurants, 'all_orders': all_orders,
-               'all_menu': all_menu_category, 'all_menu_items': all_menu_items, 'categories_for_aba': menu_categories_for_aba,
+    
+    context = {'restaurant': aba_restaurant, 'filtered_orders': filtered_orders,
+               'menu_items': menu_items, 'categories': menu_categories,
                'items_count': count_items()}
     return render(request, 'adminmain.html', context)
 
@@ -96,10 +97,11 @@ def order_get(request):
         data = json.loads(request.body)
         order_status = data.get('orderStatus')
         order_date = data.get('orderDate')
-        print(order_status, order_date)
-        return JsonResponse({'message': 'Filter order by status or date.'}, safe=False)
+        # print(order_status, order_date)
+        if order_status == '' | order_date == '':
+            order_status = 'Preparing'
+            order_date = datetime.today().strftime('%Y-%m-%d %H:%M:%S')
+        filtered_orders = Order.objects.filter(
+            status=order_status, date_ordered=order_date)
+        return JsonResponse({'filtered_orders': list(filtered_orders.values())}, safe=False)
     return JsonResponse({'message': 'Invalid request method.'}, safe=False)
-
-
-def get_orders_with_pagination():
-    pass

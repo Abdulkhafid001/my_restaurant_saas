@@ -56,6 +56,7 @@
                         <h2>Dashboard</h2>
                         <p>Welcome to the overview section of RestaurantOS.</p>
                     </div>
+
                     <!-- ORDERS -->
                     <div id="orders" class="tab-content" style="display: none">
                         <div class="container">
@@ -110,43 +111,11 @@
                                     </div>
                                 </div>
 
-                                <!-- Active Orders Table -->
-                                <h5 class="mt-4 text-start">Table</h5>
-                                <table class="table table-bordered text-capitalize">
-                                    <thead>
-                                        <tr>
-                                            <th>Order Id</th>
-                                            <th>Customer</th>
-                                            <th>Items</th>
-                                            <th>Total</th>
-                                            <th>Status</th>
-                                            <th>Actions</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>#ORD-001</td>
-                                            <td>John Doe</td>
-                                            <td>3</td>
-                                            <td>$45.00</td>
-                                            <td>
-                                                <select class="form-control form-control-sm">
-                                                    <option>New Order</option>
-                                                    <option>Preparing</option>
-                                                    <option>Ready</option>
-                                                </select>
-                                            </td>
-                                            <td>
-                                                <span class="action-icons text-success">&#128065;</span>
-                                                <span class="action-icons text-warning">&#128424;</span>
-                                                <span class="action-icons text-danger">&#10006;</span>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                                
                             </div>
                         </div>
                     </div>
+
                     <!-- MENU -->
                     <div id="menu" class="tab-content" style="display: none">
                         <h2>Menu</h2>
@@ -293,7 +262,7 @@
                                             <div class="mb-3">
                                                 <select class="form-select mb-3" name="category" required>
                                                     <option value="">Select category</option>
-                                                    {% for category in categories_for_aba %}
+                                                    {% for category in categories %}
                                                     <option value="{{category.name}}">{{category.name}}</option>
                                                     {% endfor%}
                                                 </select>
