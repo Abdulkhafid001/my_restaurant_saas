@@ -110,7 +110,9 @@
                                         </div>
                                     </div>
                                 </div>
-
+                                {% for order in filtered_orders%}
+                                <p>{{order.date_ordered}}</p>
+                                {% endfor %}
                                 
                             </div>
                         </div>

@@ -1,4 +1,5 @@
 import datetime
+from django.utils import timezone
 import json
 from django.http import JsonResponse
 from django.shortcuts import render, HttpResponse, redirect
@@ -7,15 +8,13 @@ from cart.models import Order
 
 aba_restaurant = Restaurant.objects.get(restaurant_name='Aba Food Market')
 
-filtered_orders = Order.objects.filter(
-    status='Preparing', date_ordered__gte=datetime.date.today())
-
+filtered_orders = Order.objects.none()
 
 def get_admin_home(request):
-    menu_items = MenuItem.objects.all(restaurant=aba_restaurant)
-    menu_categories = MenuCategory.objects.filter(
-        restaurant=aba_restaurant)
-    
+    filtered_orders = Order.objects.filter(
+        status='Preparing', date_ordered__gte=timezone.now)[:1]
+    menu_categories = MenuCategory.objects.filter(restaurant=aba_restaurant)
+    menu_items = MenuItem.objects.filter(category__restaurant=aba_restaurant)
     context = {'restaurant': aba_restaurant, 'filtered_orders': filtered_orders,
                'menu_items': menu_items, 'categories': menu_categories,
                'items_count': count_items()}
@@ -100,7 +99,7 @@ def order_get(request):
         # print(order_status, order_date)
         if order_status == '' | order_date == '':
             order_status = 'Preparing'
-            order_date = datetime.today().strftime('%Y-%m-%d %H:%M:%S')
+            order_date = timezone.now()
         filtered_orders = Order.objects.filter(
             status=order_status, date_ordered=order_date)
         return JsonResponse({'filtered_orders': list(filtered_orders.values())}, safe=False)
