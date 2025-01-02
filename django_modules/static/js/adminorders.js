@@ -1,12 +1,12 @@
 // this file contains code for the admin orders page
-let orderStatusField = document.getElementById("orderStatus");
-let orderDateField = document.getElementById("orderDate");
+const orderStatusField = document.getElementById("orderStatus");
+const orderDateField = document.getElementById("orderDate");
 
-orderStatusField.addEventListener("input", (event) => {
+orderStatusField.addEventListener("input", () => {
   sendOrderDetailsToBackend();
 });
 
-orderDateField.addEventListener("input", (event) => {
+orderDateField.addEventListener("input", () => {
   sendOrderDetailsToBackend();
 });
 
@@ -39,7 +39,7 @@ function getOrderDetails() {
 let csrftoken = "PIxfGivh6dxqUvxh1aZx6rgyu2sa3kEA";
 
 function sendOrderDetailsToBackend() {
-  const url = "/naijakitchen/admin/getorder/";
+  const url = "/naijakitchen/admin/orderinfo/";
   fetch(url, {
     method: "POST",
     headers: {
@@ -57,3 +57,20 @@ function sendOrderDetailsToBackend() {
       console.log("Error from Order function", error);
     });
 }
+
+// const viewOrderDetailsBtn = document.getElementsByClassName("OrderDetailsBtn");
+// console.log(viewOrderDetailsBtn.length);
+
+// for (let i = 0; i < viewOrderDetailsBtn.length; i++) {
+//   viewOrderDetailsBtn[i].addEventListener("click", (event) => {
+//     const orderId = viewOrderDetailsBtn[i].getAttribute("data-orderid");
+//     viewOrderDetails(orderId);
+//   });
+// }
+// function viewOrderDetails(orderId) {
+//   if (orderId) {
+//     console.log("getting data for:" + orderId);
+//   } else {
+//     console.log("cannot get data for empty data");
+//   }
+// }

@@ -64,20 +64,20 @@
                             <p>select to sort orders</p>
                             <div class="tab-pane fade show active" id="orders" role="tabpanel">
                                 <!-- Filter and Date -->
-                               <form action="{% url 'get_order'%}" method="post">
-                                <div class="row mb-3">
-                                    <div class="col-md-6">
-                                        <select id="orderStatus" name="status" class="form-control">
-                                            <option>Delivered</option>
-                                            <option>Preparing</option>
-                                            <option>Ready</option>
-                                        </select>
+                                <form action="#" method="post">
+                                    <div class="row mb-3">
+                                        <div class="col-md-6">
+                                            <select id="orderStatus" name="status" class="form-control">
+                                                <option>Delivered</option>
+                                                <option>Preparing</option>
+                                                <option>Ready</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <input id="orderDate" name="orderdate" type="date" class="form-control">
+                                        </div>
                                     </div>
-                                    <div class="col-md-6">
-                                        <input id="orderDate" name="orderdate" type="date" class="form-control">
-                                    </div>
-                                </div>
-                               </form>
+                                </form>
 
                                 <!-- Status Boxes -->
                                 <div class="row">
@@ -112,8 +112,14 @@
                                 </div>
                                 {% for order in filtered_orders%}
                                 <p>{{order.date_ordered}}</p>
+                                <p>{{order.get_cart_total}}</p>
+                                <p>{{order.get_cart_items}}</p>
+                                <p>{{order.id}}</p>
+                                <!-- <button class="OrderDetailsBtn" data-orderid="{{order.id}}">View</button> -->
+                                <a class="btn btn-outline-success br-curve"
+                                    href="/naijakitchen/admin/getorder/{{order.id}}/">View</a>
                                 {% endfor %}
-                                
+
                             </div>
                         </div>
                     </div>
@@ -242,24 +248,24 @@
                                         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                                     </div>
                                     <div class="modal-body">
-                                        <form action="{% url 'add_menuitem' %}" method="post" enctype="multipart/form-data"
-                                            id="menuItemForm">
+                                        <form action="{% url 'add_menuitem' %}" method="post"
+                                            enctype="multipart/form-data" id="menuItemForm">
                                             {% csrf_token %}
                                             <div class="mb-3">
-                                                <input type="text" name="name" class="form-control mb-3" placeholder="Item Name"
-                                                    required>
+                                                <input type="text" name="name" class="form-control mb-3"
+                                                    placeholder="Item Name" required>
                                             </div>
                                             <div class="mb-3">
-                                                <textarea class="form-control" rows="3" name="description" placeholder="Description"
-                                                    required></textarea>
+                                                <textarea class="form-control" rows="3" name="description"
+                                                    placeholder="Description" required></textarea>
                                             </div>
                                             <div class="mb-3">
-                                                <input type="file" name="image" id="item_image"
-                                                    placeholder="Item Image" accept="image/*" required>
+                                                <input type="file" name="image" id="item_image" placeholder="Item Image"
+                                                    accept="image/*" required>
                                             </div>
                                             <div class="mb-3">
-                                                <input type="number" name="price" class="form-control mb-3" placeholder="Price"
-                                                    step="0.01" required>
+                                                <input type="number" name="price" class="form-control mb-3"
+                                                    placeholder="Price" step="0.01" required>
                                             </div>
                                             <div class="mb-3">
                                                 <select class="form-select mb-3" name="category" required>
@@ -278,8 +284,8 @@
                                             </div>
                                             <div class="mb-3">
                                                 <div class="form-check">
-                                                    <input class="form-check-input" name="available" type="checkbox" id="availableCheck"
-                                                        checked>
+                                                    <input class="form-check-input" name="available" type="checkbox"
+                                                        id="availableCheck" checked>
                                                     <label class="form-check-label" for="availableCheck">
                                                         Available
                                                     </label>
