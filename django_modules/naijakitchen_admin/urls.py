@@ -6,4 +6,5 @@ urlpatterns = [
     path("admin/addmenuitem", views.add_menu_item, name="add_menuitem"),
     path("admin/orderinfo/", views.get_order_by_status_date, name="order_info"),
     path("admin/getorder/<int:order_id>/", views.get_order, name="get_order"),
+    path("admin/deleteorder/<int:order_id>/", views.delete_order, name="delete_order"),
 ]

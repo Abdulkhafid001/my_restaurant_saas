@@ -118,5 +118,15 @@ def get_filtered_orders():
 
 def get_order(request, order_id):
     order = Order.objects.get(id=order_id)
-    context = {'order': order}
+    order_items = order.orderitem_set.all()
+    context = {'order': order, 'orderitems': order_items}
     return render(request, 'orderdetail.html', context)
+
+
+def delete_order(request, order_id):
+    order = Order.objects.get(id=order_id)
+    if (order.DoesNotExist()):
+        return JsonResponse({'message': 'order deleted successfully'}, safe=False)
+    order.delete()
+    redirect('naijakitchenadminhome')
+    return JsonResponse({'message': 'order deleted successfully'}, safe=False)

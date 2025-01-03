@@ -25,7 +25,6 @@ function getOrderDetails() {
   return OrderData;
 }
 
-
 let csrftoken = "PIxfGivh6dxqUvxh1aZx6rgyu2sa3kEA";
 
 function sendOrderDetailsToBackend(event) {
@@ -44,27 +43,34 @@ function sendOrderDetailsToBackend(event) {
       // this where I can use json to render orders or order I get from my backend.
       console.log("response from server", data);
     })
-    .then(location.reload())
-//     .catch((error) => {
-//       console.log("Error from Order function", error);
-//     });
+    .then(location.reload());
+  //     .catch((error) => {
+  //       console.log("Error from Order function", error);
+  //     });
 }
 
-document.getElementById('orderGetForm').addEventListener('submit',sendOrderDetailsToBackend);
+document
+  .getElementById("orderGetForm")
+  .addEventListener("submit", sendOrderDetailsToBackend);
 
-// const viewOrderDetailsBtn = document.getElementsByClassName("OrderDetailsBtn");
-// console.log(viewOrderDetailsBtn.length);
+function sendRequestToServer(url, reqMethod, data, csrftoken, reloadPage) {
+  const serverResponse = {};
+  fetch(url, {
+    method: reqMethod,
+    headers: {
+      "Content-Type": "application/json",
+      "X-CSRFToken": csrftoken,
+    },
+    body: JSON.stringify(data),
+  })
+    .then((response) => (serverResponse = response.json()))
+    .then(() => {
+      if (reloadPage == true) {
+        location.reload();
+      }
+    });
+  return serverResponse;
+}
 
-// for (let i = 0; i < viewOrderDetailsBtn.length; i++) {
-//   viewOrderDetailsBtn[i].addEventListener("click", (event) => {
-//     const orderId = viewOrderDetailsBtn[i].getAttribute("data-orderid");
-//     viewOrderDetails(orderId);
-//   });
-// }
-// function viewOrderDetails(orderId) {
-//   if (orderId) {
-//     console.log("getting data for:" + orderId);
-//   } else {
-//     console.log("cannot get data for empty data");
-//   }
-// }
+
+
