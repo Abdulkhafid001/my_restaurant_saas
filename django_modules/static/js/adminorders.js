@@ -24,7 +24,7 @@ function getOrderDetails() {
   };
   return OrderData;
 }
-
+let test = 'name'
 let csrftoken = "PIxfGivh6dxqUvxh1aZx6rgyu2sa3kEA";
 
 function sendOrderDetailsToBackend(event) {
