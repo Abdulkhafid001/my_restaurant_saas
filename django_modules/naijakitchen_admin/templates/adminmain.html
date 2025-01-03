@@ -64,17 +64,21 @@
                             <p>select to sort orders</p>
                             <div class="tab-pane fade show active" id="orders" role="tabpanel">
                                 <!-- Filter and Date -->
-                                <form action="#" method="post">
+                                <form id="orderGetForm" action="{% url 'order_info' %}" method="post">
                                     <div class="row mb-3">
-                                        <div class="col-md-6">
+                                        <div class="col-md-5">
                                             <select id="orderStatus" name="status" class="form-control">
+                                                <option>Completed</option>
                                                 <option>Delivered</option>
                                                 <option>Preparing</option>
                                                 <option>Ready</option>
                                             </select>
                                         </div>
-                                        <div class="col-md-6">
+                                        <div class="col-md-5">
                                             <input id="orderDate" name="orderdate" type="date" class="form-control">
+                                        </div>
+                                        <div class="col-md-2">
+                                            <button type="submit" class="btn btn-success">Get Orders</button>
                                         </div>
                                     </div>
                                 </form>
@@ -110,16 +114,37 @@
                                         </div>
                                     </div>
                                 </div>
-                                {% for order in filtered_orders%}
-                                <p>{{order.date_ordered}}</p>
-                                <p>{{order.get_cart_total}}</p>
-                                <p>{{order.get_cart_items}}</p>
-                                <p>{{order.id}}</p>
-                                <!-- <button class="OrderDetailsBtn" data-orderid="{{order.id}}">View</button> -->
-                                <a class="btn btn-outline-success br-curve"
-                                    href="/naijakitchen/admin/getorder/{{order.id}}/">View</a>
-                                {% endfor %}
-
+                                <h3>Active Orders</h3>
+                                <table class="table table-bordered active-orders">
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th>Order ID</th>
+                                            <th>Customer</th>
+                                            <th>Date and Time</th>
+                                            <th>Items</th>
+                                            <th>Total</th>
+                                            <th>Status</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for order in filtered_orders %}
+                                        <tr>
+                                            <td>{{order.id}}</td>
+                                            <td>{{order.user}}</td>
+                                            <td>{{order.date_ordered}}</td>
+                                            <td>{{order.get_cart_items}}</td>
+                                            <td>{{order.get_cart_total}}</td>
+                                            <td>{{order.status}}</td>
+                                            <td>
+                                                <a class="btn btn-sm btn-outline-success br-curve" href="/naijakitchen/admin/getorder/{{order.id}}/">View</a>
+                                                <button class="btn btn-sm btn-outline-warning">Receipt</button>
+                                                <button class="btn btn-sm btn-outline-danger"><i class="bi bi-trash"></i></button>
+                                            </td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>

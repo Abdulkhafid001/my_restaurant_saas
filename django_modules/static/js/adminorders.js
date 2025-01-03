@@ -1,15 +1,4 @@
 // this file contains code for the admin orders page
-const orderStatusField = document.getElementById("orderStatus");
-const orderDateField = document.getElementById("orderDate");
-
-orderStatusField.addEventListener("input", () => {
-  sendOrderDetailsToBackend();
-});
-
-orderDateField.addEventListener("input", () => {
-  sendOrderDetailsToBackend();
-});
-
 function getCSRFToken(params) {
   var cookieValue = "";
   if (document.cookie && document.cookie !== "") {
@@ -38,7 +27,8 @@ function getOrderDetails() {
 
 let csrftoken = "PIxfGivh6dxqUvxh1aZx6rgyu2sa3kEA";
 
-function sendOrderDetailsToBackend() {
+function sendOrderDetailsToBackend(event) {
+  event.preventDefault();
   const url = "/naijakitchen/admin/orderinfo/";
   fetch(url, {
     method: "POST",
@@ -50,13 +40,16 @@ function sendOrderDetailsToBackend() {
   })
     .then((response) => response.json())
     .then((data) => {
-      // this where I can use json to render orders or other I get from my backend.
-      //   console.log("response from server", data);
+      // this where I can use json to render orders or order I get from my backend.
+      console.log("response from server", data);
     })
-    .catch((error) => {
-      console.log("Error from Order function", error);
-    });
+    .then(location.reload())
+//     .catch((error) => {
+//       console.log("Error from Order function", error);
+//     });
 }
+
+document.getElementById('orderGetForm').addEventListener('submit',sendOrderDetailsToBackend);
 
 // const viewOrderDetailsBtn = document.getElementsByClassName("OrderDetailsBtn");
 // console.log(viewOrderDetailsBtn.length);

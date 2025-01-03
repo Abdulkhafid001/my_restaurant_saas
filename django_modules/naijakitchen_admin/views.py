@@ -11,15 +11,15 @@ aba_restaurant = Restaurant.objects.get(restaurant_name='Aba Food Market')
 
 today = now().date()
 specific_date = datetime.date(2024, 12, 28)
+
+
 filtered_orders = Order.objects.none()
 
 
 def get_admin_home(request):
-    filtered_orders = Order.objects.filter(
-        status='Completed', date_ordered__date=specific_date)
     menu_categories = MenuCategory.objects.filter(restaurant=aba_restaurant)
     menu_items = MenuItem.objects.filter(category__restaurant=aba_restaurant)
-    context = {'restaurant': aba_restaurant, 'filtered_orders': filtered_orders,
+    context = {'restaurant': aba_restaurant, 'filtered_orders': get_filtered_orders(),
                'menu_items': menu_items, 'categories': menu_categories,
                'items_count': count_items()}
     return render(request, 'adminmain.html', context)
@@ -96,18 +96,24 @@ def add_menu_item(request):
 
 
 def get_order_by_status_date(request):
+    global filtered_orders
     if request.method == 'POST':
         data = json.loads(request.body)
-        order_status = str(data.get('orderStatus'))
+        order_status = data.get('orderStatus')
         order_date = data.get('orderDate')
-        # print(order_status, order_date)
-        # if order_status. | order_date == '':
+        print(order_status, order_date)
+        # if order_status == '' | order_date == '':
         #     order_status = 'Preparing'
         #     order_date = timezone.now()
         filtered_orders = Order.objects.filter(
-            status=order_status, date_ordered=order_date)
-        return JsonResponse({'filtered_orders': list(filtered_orders.values())}, safe=False)
+            status=order_status, date_ordered__date=order_date)
+        return JsonResponse({'message': 'Order filter successful'}, safe=False)
+        # return redirect('naijakitchenadminhome')
     return JsonResponse({'message': 'Invalid request method.'}, safe=False)
+
+
+def get_filtered_orders():
+    return filtered_orders
 
 
 def get_order(request, order_id):
