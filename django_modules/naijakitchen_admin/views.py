@@ -130,3 +130,4 @@ def delete_order(request, order_id):
     order.delete()
     redirect('naijakitchenadminhome')
     return JsonResponse({'message': 'order deleted successfully'}, safe=False)
+

@@ -43,7 +43,6 @@ class MenuCategory(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def save(self, *args, **kwargs):
-        # Automatically generate slug if not provided
         if not self.slug:
             self.slug = slugify(self.name)
             super().save(*args, **kwargs)
