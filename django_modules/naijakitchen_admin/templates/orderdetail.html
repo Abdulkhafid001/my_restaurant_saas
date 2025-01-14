@@ -24,13 +24,15 @@
 
 <body>
     {% block content %}
-    <p>order: id{{order.id}}</p>
-    <p>order items</p>
-    {% for item in orderitems %}
-    <p>{{item.product.name}}</p>
-    <p>{{item.product.restaurant}}</p>
-    <p>{{item.quantity}}</p>
-    <p>{{item.date_added}}</p>
-    {% endfor %}
+    <div class="container text-center border border-black w-50">
+        <p>order: id {{order.id}}</p>
+        <p>order items</p>
+        {% for item in orderitems %}
+        <p>{{item.product.name}}</p>
+        <p>{{item.product.restaurant}}</p>
+        <p>{{item.quantity}}</p>
+        <p>{{item.date_added}}</p>
+        {% endfor %}
+    </div>
     {% endblock %}
 </body>

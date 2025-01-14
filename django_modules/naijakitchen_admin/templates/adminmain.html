@@ -114,6 +114,7 @@
                                         </div>
                                     </div>
                                 </div>
+
                                 <h3>Active Orders</h3>
                                 <table class="table table-bordered active-orders">
                                     <thead class="table-light">
@@ -128,6 +129,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+
                                         {% for order in filtered_orders %}
                                         <tr>
                                             <td>{{order.id}}</td>
@@ -138,14 +140,15 @@
                                             <td>{{order.status}}</td>
                                             <td>
                                                 <a class="btn btn-sm btn-outline-success br-curve"
-                                                    href="/naijakitchen/admin/getorder/{{order.id}}/" data-action="view">View</a>
+                                                    href="/naijakitchen/admin/getorder/{{order.id}}/"
+                                                    data-action="view">View</a>
                                                 <button class="btn btn-sm btn-outline-warning">Receipt</button>
-                                                <button class="btn btn-sm btn-outline-danger"
-                                                     data-action="delete"><i class="bi bi-trash"></i></button>
+                                                <button class="btn btn-sm btn-outline-danger" data-action="delete"><i
+                                                        class="bi bi-trash"></i></button>
                                             </td>
                                         </tr>
-                                        {% endfor %}
-                                    </tbody>    
+                                        {% endfor%}
+                                    </tbody>
                                 </table>
                             </div>
                         </div>
