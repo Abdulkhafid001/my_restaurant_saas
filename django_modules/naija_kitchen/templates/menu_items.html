@@ -58,12 +58,12 @@
 
                         <!-- Quantity Controls -->
                         <div class="d-flex align-items-center mt-2">
-                            <button class="btn btn-outline-dark btn-sm rounded-circle update-cart"
+                            <button class="btn btn-outline-dark btn-sm rounded-circle update-cart-page"
                                 data-product="{{menuitem.id}}" data-action="remove">
                                 <i class="bi bi-dash"></i>
                             </button>
                             <span class="mx-3 fw-bold">4</span>
-                            <button class="btn btn-outline-dark btn-sm rounded-circle update-cart"
+                            <button class="btn btn-outline-dark btn-sm rounded-circle update-cart-page"
                                 data-product="{{menuitem.id}}" data-action="add">
                                 <i class="bi bi-plus"></i>
                             </button>
@@ -79,7 +79,7 @@
         const menuItemsData = '{{menu_items_json}}';
         const cleanData = JSON.parse(menuItemsData.replace(/&quot;/g, '"'));
         // console.log(cleanData);
-       
+
 
         let menuItemCard = document.getElementById('menuItemCard');
         let filteredArray = [];

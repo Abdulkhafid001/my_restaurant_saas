@@ -21,7 +21,7 @@ def get_admin_home(request):
     menu_items = MenuItem.objects.filter(category__restaurant=aba_restaurant)
     context = {'restaurant': aba_restaurant, 'filtered_orders': get_filtered_orders(),
                'menu_items': menu_items, 'categories': menu_categories,
-               'items_count': count_items()}
+               'items_count': count_items(), 'order_status_count': get_order_status_count()}
     return render(request, 'adminmain.html', context)
 
 
@@ -130,3 +130,13 @@ def delete_order(request, order_id):
     order.delete()
     redirect('naijakitchenadminhome')
     return JsonResponse({'message': 'order deleted successfully'}, safe=False)
+
+
+def get_order_status_count():
+    completed_count = Order.objects.filter(status='Completed').count()
+    preparing_count = Order.objects.filter(status='Preparing').count()
+    cancelled_count = Order.objects.filter(status='Cancelled').count()
+    ready_count = Order.objects.filter(status='Ready').count()
+    order_status_count = {'completed': completed_count, 'preparing': preparing_count,
+                          'cancelled': cancelled_count, 'ready': ready_count}
+    return order_status_count

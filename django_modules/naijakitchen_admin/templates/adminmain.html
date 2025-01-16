@@ -89,28 +89,28 @@
                                         <div class="status-box new-orders">
                                             <div>New Orders</div>
                                             <small>Just in...</small>
-                                            <div>5</div>
+                                            <p>{{order_status_count.preparing}}</p>
                                         </div>
                                     </div>
                                     <div class="col-md-3">
                                         <div class="status-box preparing">
                                             <div>Preparing</div>
                                             <small>In the kitchen</small>
-                                            <div>8</div>
+                                            <p>{{order_status_count.ready}}</p>
                                         </div>
                                     </div>
                                     <div class="col-md-3">
                                         <div class="status-box ready">
                                             <div>Ready</div>
                                             <small>Ready for pickup</small>
-                                            <div>3</div>
+                                            <p>{{order_status_count.cancelled}}</p>
                                         </div>
                                     </div>
                                     <div class="col-md-3">
                                         <div class="status-box completed">
                                             <div>Completed</div>
                                             <small>Delivered today</small>
-                                            <div>24</div>
+                                            <p>{{order_status_count.completed}}</p>
                                         </div>
                                     </div>
                                 </div>
@@ -146,6 +146,10 @@
                                                 <button class="btn btn-sm btn-outline-danger" data-action="delete"><i
                                                         class="bi bi-trash"></i></button>
                                             </td>
+                                        </tr>
+                                        {%empty%}
+                                        <tr>
+                                            <td>No order present. Try searching for another!</td>
                                         </tr>
                                         {% endfor%}
                                     </tbody>
