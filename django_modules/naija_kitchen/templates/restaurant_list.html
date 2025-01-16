@@ -36,7 +36,7 @@
                 </div>
             </div>
             <div class="container">
-                <p>You have visited this page {{ visit_count }} time{{ num_visits|pluralize }}.</p>
+                <p>You have visited this page {{ visit_count }} time{{ visit_count|pluralize }}.</p>
                 <div id="productCard" class="row">
                     {% for restaurant in restaurants %}
                     <div class="col-sm-4 mb-3">

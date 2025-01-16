@@ -48,6 +48,10 @@ def update_cart(request):
     return JsonResponse({"error": "Invalid request try another!"}, safe=False, status=400)
 
 
+# - create a function init order
+# - refactor update_order function (if action is remove, deduct one from quantity, if quantity is 
+# < 1, delete order_item from order, if action is add, add one to quantity, (add availability check))
+
 def get_product_id_from_request(request):
     return request.session.get('product_id_from_request')
 
@@ -72,15 +76,17 @@ def checkout(request):
         return render(request, 'checkout.html', context)
 
 
+# - refactor this function into two, and use order init, and then save order itself
+
 def process_order(request):
     # REMEMBER TO CLEAR PRODUCT_ID SESSION / OR FULL SESSON  IF ORDER IS COMPLETED
     transaction_id = datetime.datetime.now().timestamp()
-    frontend_data = json.loads(request.body.decode('utf-8'))
+    order_data = json.loads(request.body.decode('utf-8'))
 
-    user_name = frontend_data['userInfo']['name']
-    user_phone = frontend_data['userInfo']['phoneNumber']
-    user_delivery_address = frontend_data['userInfo']['deliveryAddress']
-    cart_total = float(frontend_data['userInfo']['total'])
+    user_name = order_data['userInfo']['name']
+    user_phone = order_data['userInfo']['phoneNumber']
+    user_delivery_address = order_data['userInfo']['deliveryAddress']
+    cart_total = float(order_data['userInfo']['total'])
     print(user_name, user_phone, user_delivery_address, cart_total)
 
     if request.user.is_authenticated:
