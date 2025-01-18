@@ -1,9 +1,9 @@
 from django.shortcuts import render
 from django.http import JsonResponse, HttpResponse
 import json
-from .models import *
+from cart.models import *
 from .cartutils import cart_data
-from naija_kitchen.models import MenuItem
+from naija_kitchen.models import Restaurant, MenuItem
 import datetime
 
 
@@ -43,14 +43,11 @@ def update_cart(request):
         if order_item.quantity < 1:
             order_item.delete()
             request.session['cartItems'] = ((request.session['cartItems']) - 1)
-        data = {'cartItems': order.get_cart_items, 'quantity': order_item.quantity, 'total': order.get_cart_total}
+        data = {'cartItems': order.get_cart_items,
+                'quantity': order_item.quantity, 'total': order.get_cart_total}
         return JsonResponse(data, safe=False, status=200)
     return JsonResponse({"error": "Invalid request try another!"}, safe=False, status=400)
 
-
-# - create a function init order
-# - refactor update_order function (if action is remove, deduct one from quantity, if quantity is 
-# < 1, delete order_item from order, if action is add, add one to quantity, (add availability check))
 
 def get_product_id_from_request(request):
     return request.session.get('product_id_from_request')
@@ -76,8 +73,6 @@ def checkout(request):
         return render(request, 'checkout.html', context)
 
 
-# - refactor this function into two, and use order init, and then save order itself
-
 def process_order(request):
     # REMEMBER TO CLEAR PRODUCT_ID SESSION / OR FULL SESSON  IF ORDER IS COMPLETED
     transaction_id = datetime.datetime.now().timestamp()
@@ -90,25 +85,20 @@ def process_order(request):
     print(user_name, user_phone, user_delivery_address, cart_total)
 
     if request.user.is_authenticated:
-        user = request.user
-        product_id = request.session.get('product_id_from_request')
-        menu_item = MenuItem.objects.get(
-            id=product_id)
-        restaurant = menu_item.category.restaurant
+        restaurant = Restaurant.objects.get(restaurant_name='Aba Food Market')
         order, created = Order.objects.get_or_create(
-            user=user, restaurant=restaurant, complete=False
+            user=request.user, restaurant=restaurant, complete=False
         )
-
-    order.transaction_id = transaction_id
-    if cart_total == order.get_cart_total:
-        order.complete = True
-        order.save()
-        del request.session['product_id_from_request']
-        request.session['cartItems'] = 0
-        request.session.modified = True
-        # add code to redirect to order success
-
-    return JsonResponse({'message': 'Order being processed..'}, safe=False, status=200)
+        if cart_total == order.get_cart_total:
+            order.complete = True
+            order.transaction_id = transaction_id
+            order.save()
+            request.session['cartItems'] = 0
+            request.session.modified = True
+            # add code to redirect to order success
+        return JsonResponse({'message': 'Order being processed..'}, safe=False, status=200)
+    else:
+        return JsonResponse({'message': 'update order for cookies here.'})
 
 
 def get_cart_items(request):
