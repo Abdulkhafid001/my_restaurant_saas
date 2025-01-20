@@ -341,3 +341,137 @@ body {
 }
 
 /* <=============== END =========> */
+
+/* <======== Order Detail Page ======> */
+.order-page-container {
+    max-width: 600px;
+    margin: 20px auto;
+    background: #ffffff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.order-page-header {
+    padding: 16px;
+    border-bottom: 1px solid #e0e0e0;
+    background-color: #f9f9f9;
+}
+
+.order-page-header h2 {
+    margin: 0;
+    font-size: 20px;
+}
+
+.order-page-header a {
+    text-decoration: none;
+    color: #007BFF;
+    font-size: 14px;
+}
+
+.content {
+    padding: 16px;
+}
+
+.order-info {
+    margin-bottom: 16px;
+}
+
+.order-info h3 {
+    margin: 0;
+    font-size: 18px;
+}
+
+.order-info .date {
+    font-size: 14px;
+    color: #555;
+}
+
+.order-info .delivery {
+    font-size: 14px;
+    color: #28a745;
+    margin-top: 4px;
+}
+
+.order-items {
+    border-top: 1px solid #e0e0e0;
+    padding-top: 16px;
+}
+
+.order-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.order-item img {
+    width: 120px;
+    height: 120px;
+    border-radius: 8px;
+    margin-right: 16px;
+}
+
+.order-item-details {
+    flex: 1;
+}
+
+.order-item-title {
+    margin: 0;
+    font-size: 16px;
+}
+
+.order-item-subtitle {
+    font-size: 14px;
+    color: #555;
+}
+
+.order-item-price {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.order-page-footer {
+    border-top: 1px solid #e0e0e0;
+    padding-top: 16px;
+    font-size: 14px;
+}
+
+.order-page-footer .section {
+    margin-bottom: 16px;
+}
+
+.order-page-footer .section h4 {
+    margin: 0 0 4px 0;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.order-page-footer .section p {
+    margin: 0;
+    color: #555;
+}
+
+.actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+}
+
+.order-page-btn {
+    text-decoration: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.btn-invoice {
+    background-color: #007BFF;
+    color: #ffffff;
+}
+
+.btn-track {
+    background-color: #28a745;
+    color: #ffffff;
+}
+
+/* <======== END ======> */
