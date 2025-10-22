@@ -5,7 +5,7 @@ from naija_kitchen.models import Restaurant, MenuCategory
 # Signal receiver function
 
 
-@receiver(post_save, sender=Restaurant)
+@receiver(post_save, sender=Restaurant) 
 def create_default_categories(sender, instance, created, **kwargs):
     if created:  # This ensures it only runs when a new Restaurant is created
         MenuCategory.objects.bulk_create([

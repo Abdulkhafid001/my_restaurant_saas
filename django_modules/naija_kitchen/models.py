@@ -88,7 +88,7 @@ class MenuItem(models.Model):
             self.slug = slugify(self.name)
             super().save(*args, **kwargs)
 
-    class Meta:
+    class Meta: 
         ordering = ['name']
         indexes = [
             models.Index(fields=['id', 'slug']),
